@@ -3,8 +3,7 @@
 ### Student(i)
 
 ## Descriere
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-
+Aceata aplicatie reprezinta un sitem de rezervare si imprumut carti de la o biblioteca.
 ## Obiective
 Lorem ipsum
 
@@ -24,7 +23,8 @@ Lorem ipsum ...
 Lorem ipsum ...
 
 ## Functionalitati/Exemple utilizare
-Lorem ipsum
-
+Exista doua roluri in intermediu aplicatiei: cititor sau bibliotecar.  
+Un utilizator cu rol de cititor poate sa verifice daca o anumita carte este disponibila in biblioteca si sa faca o rezervare pentru aceasta. 
+Un utilizator cu rol de bibliotecar poate realiza imprumuturi si retunari de carti pentru utilizatorii cu rol de cititor. Acesta poate adauga carti sau exemplare noi in baza de date. 
 ### Resurse
 Markdown Guide, [Online] Available: https://www.markdownguide.org/basic-syntax/ [accesed: Mar 14, 1706]
