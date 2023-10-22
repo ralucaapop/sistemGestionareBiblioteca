@@ -18,7 +18,7 @@ Lorem ipsum
 ## Arhitectura
 Lorem ipsum ...
 
-![Alt text](documentatie-ghid-utlizare-raport/diagrama-clase.png)
+![Alt text](documentatie-ghid-utlizare-raport/diagrama clase.png)
 
 Lorem ipsum ...
 
