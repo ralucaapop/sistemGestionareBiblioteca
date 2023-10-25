@@ -7,7 +7,7 @@ Aceata aplicatie reprezinta un sitem de rezervare si imprumut carti de la o bibl
 
 ## Arhitectura
 
-![Alt text](documentatie-ghid-utlizare-raport/diagrama-clase.png)
+![Alt text](documentatie-ghid-utlizare-raport/diagrama-clase1.png)
 
 
 
