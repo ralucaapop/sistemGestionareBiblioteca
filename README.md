@@ -15,6 +15,6 @@ Aceata aplicatie reprezinta un sitem de rezervare si imprumut carti de la o bibl
 Exista doua roluri in intermediu aplicatiei: cititor sau bibliotecar.  
 Un utilizator cu rol de cititor poate sa verifice daca o anumita carte este disponibila in biblioteca si sa faca o rezervare pentru aceasta. 
 Un utilizator cu rol de bibliotecar poate realiza imprumuturi si retunari de carti pentru utilizatorii cu rol de cititor. Acesta poate adauga carti sau exemplare noi in baza de date. 
-![diagrama usecase](documentatie-ghid-utlizare-raport/Diagrama-use-clase.png)
+![diagrama usecase](documentatie-ghid-utlizare-raport/Diagrama-use-case.png)
 ### Resurse
 Markdown Guide, [Online] Available: https://www.markdownguide.org/basic-syntax/ [accesed: Mar 14, 1706]
