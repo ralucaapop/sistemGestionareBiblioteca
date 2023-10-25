@@ -1,26 +1,15 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/YmUJH1TE)
-# Titlu proiect
-### Student(i)
+# Titlu proiect: Rezervare si imrpumut carti
+### Student(i) Pop Raluca Daniela
 
 ## Descriere
 Aceata aplicatie reprezinta un sitem de rezervare si imprumut carti de la o biblioteca.
-## Obiective
-Lorem ipsum
-
-* ob1
-* ob2
-* ob3
-    - sob31
-    - sob32
-    - ...
-* ....
 
 ## Arhitectura
-Lorem ipsum ...
 
 ![Alt text](documentatie-ghid-utlizare-raport/diagrama-clase.png)
 
-Lorem ipsum ...
+
 
 ## Functionalitati/Exemple utilizare
 Exista doua roluri in intermediu aplicatiei: cititor sau bibliotecar.  
