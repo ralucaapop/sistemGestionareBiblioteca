@@ -20,6 +20,6 @@ Un utilizator cu rol de bibliotecar poate realiza imprumuturi si retunari de car
 ![diagrama usecase](documentatie-ghid-utlizare-raport/Diagrama-use-case.png)
 
 ## Tabele baza de data
-![tabele](documentatie-ghid-utlizare-raport/tabele.png)
+![tabele](documentatie-ghid-utlizare-raport/Tabele.png)
 ### Resurse
 Markdown Guide, [Online] Available: https://www.markdownguide.org/basic-syntax/ [accesed: Mar 14, 1706]
