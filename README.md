@@ -1,10 +1,12 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/YmUJH1TE)
 # Titlu proiect: Rezervare si imrpumut carti
-### Student(i) Pop Raluca Daniela
+### Student Pop Raluca Daniela
 
 ## Descriere
 Aceata aplicatie reprezinta un sitem de rezervare si imprumut carti de la o biblioteca.
 
+## Motivatie
+Aceasta aplicatie vine in ajutorul persoanelor care doresc sa imprumute o anumita carte de la biblioteca, insa inainte de a merge fizic si a imprumuta cartea, acestia pot sa verifice daca exista un exemplar disponibil si sa faca o rezervare pentru acesta. In momentul in cara acesta rezerva exemplarul, acesta nu va putea fi imprumutat de catre o alta persoana timp de 24 de ore, astfel, in acest timp cititorul poate sa mearga la biblioteca si sa imprumute exemplarul respectiv avand siguranta ca acesta este disponibil. 
 ## Arhitectura
 
 ![Alt text](documentatie-ghid-utlizare-raport/diagrama-clase1.png)
