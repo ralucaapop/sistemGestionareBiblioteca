@@ -6,43 +6,61 @@ import ProiectP3Biblioteca.Cititor;
 import ProiectP3Biblioteca.Rezervare;
 import ProiectP3Biblioteca.Utilizator;
 
-public class Cititor extends Utilizator{
+public class Cititor{
 	
-	private int idCititor;
-	private String parola;
+	protected String CNP;
+	protected String nume;
+	protected String nrTelefon;
+	protected String parola;
 	
 	public Cititor() {
-		super();
-		this.idCititor=0;
+		this.CNP="nec";
+		this.nume="nec";
+		this.nrTelefon="0";
 		this.parola="nec";
 	}
 	
-	public Cititor(String email, String nume, String nrTelefon, int idUtilizator, String parola) {
-		super(email,nume,nrTelefon);
-		this.idCititor=idUtilizator;
+	public Cititor(String CNP, String nume, String nrTelefon, String parola) {
+		this.CNP=CNP;
+		this.nume=nume;
+		this.nrTelefon=nrTelefon;
 		this.parola=parola;
 	}
 	
-	public Cititor(int idCititor, String parola) {
-		this.idCititor=idCititor;
+	public Cititor(String CNP, String parola)
+	{
+		this.CNP=CNP;
 		this.parola=parola;
 	}
 	
-	public Cititor creareCont(String email, String nume, String nrTelefon, int idUtilizator, String parola)
+	public String getCNPCititor() {
+		return this.CNP;
+	}
+	
+	public String getNume() {
+		return this.nume;
+	}
+	
+	public String getNrTelefon() {
+		return this.nrTelefon;
+	}
+	public String getParola() {
+		return this.parola;
+	}
+	
+	public static Cititor autentificareCititor(String CNP, String parola)
 	{
-		Cititor c= new Cititor(email, nume, nrTelefon, idUtilizator, parola);
+		Cititor c= new Cititor(CNP, parola);
 		return c;
 	}
 	
-	public Cititor autentificareCititor(int idCititor, String parola)
+	
+	public Rezervare rezervaExemplar(int idExemplar)
 	{
-		Cititor c= new Cititor(idCititor, parola);
-		return c;
+		Rezervare rez = new Rezervare(this.CNP,idExemplar, LocalDate.now());
+		return rez;
 	}
 	
-	public void rezervaCarte(int idExemplar)
-	{
-		Rezervare rez = new Rezervare(this.idCititor,idExemplar,1, LocalDate.now());
-	}
+
 }
 

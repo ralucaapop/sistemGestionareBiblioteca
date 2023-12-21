@@ -4,30 +4,27 @@ import java.time.LocalDate;
 
 public class Rezervare {
 	private int idExemplar;
-	private int idRezervare;
-	private int idCititor;
+	private String 	CNPCititor;
 	private LocalDate dataRezervare;
 	
 	public Rezervare() {
-		this.idCititor=0;
+		this.CNPCititor="nec";
 		this.idExemplar=0;
-		this.idRezervare=0;
 		this.dataRezervare=(LocalDate.of(0,0,0));
 	}
 	
-	public Rezervare(int idr,int idc, int ide, LocalDate di) {
-		this.idCititor=idc;
-		this.idExemplar=ide;
-		this.idRezervare=idr;
-		this.dataRezervare=di;
+	public Rezervare(String CNP, int idExemplar, LocalDate dataRezervare) {
+		this.CNPCititor=CNP;
+		this.idExemplar=idExemplar;
+		this.dataRezervare=dataRezervare;
 	}
 	
 	public LocalDate getDataRezervare() {
 		return this.dataRezervare;
 	}
 	
-	public int getIdCititor() {
-		return this.idCititor;
+	public String getCNPCititor() {
+		return this.CNPCititor;
 	}
 	
 	public int getIdExemplar()

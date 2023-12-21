@@ -35,25 +35,50 @@ public class Carte {
 		this.nrZileImprumut=nrzi;
 	}
 	
-	int getNrExemplareImprumutate() {
+	public String getTitlu() {
+		return this.titluCarte;
+	}
+	
+	public String getAutor() {
+		return this.autor;
+	}
+	
+	public int getIdCarte() {
+		return this.idCarte;
+	}
+	
+	public String getGen()
+	{
+		return this.gen;
+	}
+	
+	public int getNrZileImprumut() {
+		return this.nrZileImprumut;
+	}
+	
+	public int getNrExemplareImprumutate() {
 		return this.nrExemplareImprumutate;
 	}
 	
-	int getNrExemplareDisponibile() {
+	public int getNrExemplareDisponibile() {
 		return this.nrExemplareDisponibile;
 	}
 	
-	int getNrExemplareRezervate() {
+	public int getNrExemplareRezervate() {
 		return this.nrExemplareRezervate;
 	}
 	
-	void setNrExemplareImprumutate(int nr){
+	public void setNrExemplareImprumutate(int nr){
 		this.nrExemplareImprumutate=nr;
 	}
-	void setNrExemplareDisponibile(int nr){
+	public void setNrExemplareDisponibile(int nr){
 		this.nrExemplareDisponibile=nr;
 	}
-	void setNrExemplareRezervate(int nr){
+	public void setNrExemplareRezervate(int nr){
 		this.nrExemplareRezervate=nr;
+	}
+	
+	public String toString() {
+		return this.idCarte+" "+this.titluCarte+" "+this.autor;
 	}
 }

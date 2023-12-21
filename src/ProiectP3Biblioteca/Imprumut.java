@@ -4,22 +4,27 @@ import java.time.LocalDate;
 
 public class Imprumut {
 	private int idExemplar;
-	private int idImprumut;
-	private int idCititor;
+	private String CNPCititor;
 	private LocalDate dataImprumut;
 	
 	public Imprumut() {
-		this.idCititor=0;
+		this.CNPCititor="nec";
 		this.idExemplar=0;
-		this.idImprumut=0;
 		this.dataImprumut=(LocalDate.of(0,0,0));
 	}
 	
-	public Imprumut(int idi, int ide, int idc, LocalDate di) {
-		this.idCititor=idc;
-		this.idExemplar=ide;
-		this.idImprumut=idi;
+	public Imprumut(int idExemplar, String CNP, LocalDate di) {
+		this.CNPCititor=CNP;
+		this.idExemplar=idExemplar;
 		this.dataImprumut=di;
+	}
+	
+	public int getIdExemplar() {
+		return this.idExemplar;
+	}
+	
+	public String getCNPCititor() {
+		return this.CNPCititor;
 	}
 	
 	public LocalDate getDataImprumut() {
