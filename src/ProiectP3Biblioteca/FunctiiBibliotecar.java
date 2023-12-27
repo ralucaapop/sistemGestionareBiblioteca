@@ -6,9 +6,13 @@ import java.util.List;
 import java.util.Scanner;
 
 import ProiectP3Biblioteca.Exemplar.status;
-
+/**
+ * Clasa care contine toate metodele corespunzatoare actiunilor aplicatie pentru un bibliotecar
+ */
 public class FunctiiBibliotecar {
-	
+	/**
+	 * Metoda pentru adaugarea uneoi noi carti in binlioteca
+	 */
 	public static void adaugaCarteNoua() {
 		
 		List<Carte> carti = new ArrayList<>();
@@ -56,7 +60,9 @@ public class FunctiiBibliotecar {
 			Functii.scrieCarti(carti);
 		}	
 	}
-	
+	/**
+	 * Metoda pentru adaugarea unui nou exemplar in biblioteca
+	 */
 	public static void adaugaExemplarNou() {
 		List<Exemplar> exemplare = new ArrayList<>();
 		exemplare=Functii.citireExemplar();
@@ -129,7 +135,9 @@ public class FunctiiBibliotecar {
 				}
 		}
 	}
-	
+	/**
+	 * Metoda pentru creearea unui noi cont de cititor
+	 */
 	public static void adaugaCititorNou() 
 	{
 		
@@ -177,7 +185,11 @@ public class FunctiiBibliotecar {
 			Functii.scrieCititori(cititori);
 		}
 	}
-	
+	/**
+	 * Metoda pentru alegrea id-ului exemplarului care se doreste a fi imprututat
+	 * @param idCarte - id-ul cartii care se doreste a fi imprumutata
+	 * @return - id-ul exemplarului
+	 */
 	public static int alegeIdExemplarPtImprumut(int idCarte) {
 		
 		List<Exemplar> exemplare = new ArrayList<>();
@@ -193,6 +205,11 @@ public class FunctiiBibliotecar {
 		System.out.println("Exemplarul cu id-ul " + id+ " a fost selectat pentru imprumut.");
 		return  id;
 	}
+	
+	/**
+	 * Metoda pentru determinarea cititorului care doreste sa faca un imprumut
+	 * @return un obiect de tipul Cititor
+	 */
 	public static Cititor determinaCititorulCareImprumutaCartea()
 	{
 		boolean CNPValid=false;
@@ -224,6 +241,12 @@ public class FunctiiBibliotecar {
 			
 	}
 	
+	
+	/**
+	 * Metoda pentru alegerea id-ului cartii care se doreste a fi imprumutata
+	 * @param carti - lista de carti din boblioteca
+	 * @return - id-ul cartii
+	 */
 	public static int alegeIdCartePtImprumut(List<Carte> carti)
 	{
 		boolean idCorect=false;
@@ -247,6 +270,12 @@ public class FunctiiBibliotecar {
 		return id;
 	}
 	
+	/**
+	 * Metoda folosita pentru realizarea unui imprumut 
+	 * @param cit - citiroul pentru care se reazizeaza imorumutul
+	 * @param idCarte - id-ul cartii care se doreste a fi imprumutata
+	 * @param idExemplar - id-ul exemplarului corespunzator cartii
+	 */
 	public static void realizeazaImprumutP2(Cititor cit, int idCarte, int idExemplar ) {
 		Imprumut imp = new Imprumut(idExemplar,cit.getCNPCititor(), LocalDate.now());
 		
@@ -280,6 +309,9 @@ public class FunctiiBibliotecar {
 		System.out.println("Imprumut efectuat cu succes.");	
 	}
 	
+	/**
+	 * Metoda pentru reazlizarea imprumutului unei carti
+	 */
 	public static void realizeazaImprumutP1() {
 		
 		System.out.println("<<Imprumuta o carte>>");
@@ -314,6 +346,9 @@ public class FunctiiBibliotecar {
 		realizeazaImprumutP2(cititor, idCartePtImprumut, idExemplarPtImprumut);
 	}
 	
+	/**
+	 * Metoda pentru realizarea returului unui exemplar
+	 */
 	public static void realizeazaRetur() {
 		
 		boolean cititorCorect =false;

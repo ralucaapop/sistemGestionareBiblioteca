@@ -7,19 +7,6 @@ import java.util.Scanner;
 public class MainClasProiectP3Biblioteca {
 	public static void main(String[] args)
 	{
-		//List<Cititor> cititori = new ArrayList<>();
-		List<Bibliotecar> bibliotecari = new ArrayList<>();
-		List<Carte> carti = new ArrayList<>();
-		List<Exemplar> exemplare = new ArrayList<>();
-		List<Imprumut> imprumuturi = new ArrayList<>();
-		List<Rezervare> rezervari = new ArrayList<>(); 
-		
-		bibliotecari=Functii.citireBibliotecari();
-		//cititori=Functii.citireCititori();
-		carti=Functii.citireCarti();
-		exemplare=Functii.citireExemplar();
-		imprumuturi=Functii.citireImprumuturi();
-		rezervari=Functii.citireRezervari();
 		
 		boolean alegereCorecta=false;
 		while(!alegereCorecta)

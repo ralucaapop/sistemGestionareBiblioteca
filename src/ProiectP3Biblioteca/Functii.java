@@ -12,8 +12,16 @@ import java.util.Scanner;
 
 import ProiectP3Biblioteca.Exemplar.status;
 
+/**
+ * Clasa pentru definirea tuturor metodelor folosite in aplicatie de catre un cititor + cititri si scrierei in fisiere
+ */
+
 public class Functii {
 
+	/**
+	 * Metoda pentru citirea cartilor din fisier
+	 * @return lista cu obiecte de tip carte
+	 */
 	public static ArrayList<Carte> citireCarti()
 	{
 		ArrayList<Carte> carti= new ArrayList<>();
@@ -36,7 +44,10 @@ public class Functii {
 		
 		return carti;
 	}
-	
+	/**
+	 * Metoda pentru citirea cititorilor din fisier
+	 * @return lista cu obiecte de tip cititor
+	 */
 	public static ArrayList<Cititor> citireCititori()
 	{
 		ArrayList<Cititor> cititori= new ArrayList<>();
@@ -60,6 +71,10 @@ public class Functii {
 		return cititori;
 	}
 	
+	/**
+	 * Metoda pentru citirea bibliotecarilor din fisier
+	 * @return lista cu obiecte de tip bibliotecar
+	 */
 	public static ArrayList<Bibliotecar> citireBibliotecari()
 	{
 		ArrayList<Bibliotecar> bibliotecari= new ArrayList<>();
@@ -83,6 +98,10 @@ public class Functii {
 		return bibliotecari;
 	}
 	
+	/**
+	 * Metoda pentru citirea exemplarelor din fisier
+	 * @return lista cu obiecte de tip exemplar
+	 */
 	public static ArrayList<Exemplar> citireExemplar()
 	{
 		ArrayList<Exemplar> exemplare= new ArrayList<>();
@@ -119,6 +138,10 @@ public class Functii {
 		return exemplare;
 	}
 	
+	/**
+	 * Metoda pentru citirea cartilor imprumutate din fisier
+	 * @return lista cu obiecte de tip imprumut
+	 */
 	public static ArrayList<Imprumut> citireImprumuturi()
 	{
 		ArrayList<Imprumut> imprumuturi= new ArrayList<>();
@@ -143,6 +166,10 @@ public class Functii {
 		return imprumuturi;
 	}
 	
+	/**
+	 * Metoda pentru citirea cartilor rezervate din fisier
+	 * @return lista cu obiecte de tip rezervare
+	 */
 	public static ArrayList<Rezervare> citireRezervari()
 	{
 		ArrayList<Rezervare> rezervari= new ArrayList<>();
@@ -167,6 +194,10 @@ public class Functii {
 		return rezervari;
 	}
 	
+	/**
+	 * Metoda pentru scrierea obiectelor de tip rezervare in fisier
+	 * @param rezervari- lista de rezervari
+	 */
 	public static void scrieRezervari(List<Rezervare> rezervari)
 	{
 		 try {
@@ -190,6 +221,10 @@ public class Functii {
 		}
 	}
 	
+	/**
+	 * Metoda pentru scrierea obiectelor de tip exemplar in fisier
+	 * @param exemplare- lista de exemplare
+	 */
 	public static void scrieExemplare(List<Exemplar> exemplare)
 	{
 		 try {
@@ -212,6 +247,10 @@ public class Functii {
 		}
 	}
 	
+	/**
+	 * Metoda pentru scrierea obiectelor de tip imprumut in fisier
+	 * @param imprumuturi - lista de imprumuturi
+	 */
 	public static void scrieImprumuturi(List<Imprumut> imprumuturi)
 	{
 		 try {
@@ -234,6 +273,10 @@ public class Functii {
 		}
 	}
 	
+	/**
+	 * Metoda pentru scrierea obectelor de tip carte in fisier
+	 * @param carti - lista de carti
+	 */
 	public static void scrieCarti(List<Carte> carti)
 	{
 		 try {
@@ -266,6 +309,10 @@ public class Functii {
 		}
 	}
 	
+	/**
+	 * Metoda pentru scrierea obiectelor de tip cititor in fisier
+	 * @param cititori - lista de cititori
+	 */
 	public static void scrieCititori(List<Cititor> cititori)
 	{
 		 try {
@@ -290,7 +337,10 @@ public class Functii {
 		}
 	}
 	
-	
+	/**
+	 * Metoda pentru scrierea obiectelor de tip bibliotecar
+	 * @param bibliotecari - lista de bibliotecari
+	 */
 	public static void scrieBibliotecari(List<Bibliotecar> bibliotecari)
 	{
 		 try {
@@ -318,35 +368,10 @@ public class Functii {
 		}
 	}
 	
-	
-	public static void autentificareCititor(String CNP, String parola) {
-		//
-		ArrayList<Cititor> cititori = new ArrayList<>();
-		cititori=Functii.citireCititori();
-		boolean existaCNP = false;
-		for(Cititor c: cititori)
-		{
-			if(c.getCNPCititor().equals(CNP))
-				{
-					existaCNP=true;
-					if(c.getParola().equals(parola))
-						{
-							Cititor ca = Cititor.autentificareCititor(CNP, parola);
-							System.out.println("Inregistrare cu succes");
-						}
-					else {
-						System.out.println("Parola gresita");
-					}
-				}
-		}
-		if(existaCNP==false)
-		{
-			//Cititor cn= Cititor.Cititor(CNP, parola);
-			System.out.println("Nu exista un cont asociat acestui CNP");
-		}
-	}
-	
-	
+	/**
+	 * Metoda pentru autentificarea in aplicatie a unui cititor
+	 * @param sc - un obiect de tip Scanner
+	 */
 	public static void actiuniCititor(Scanner sc)
 	{
 		boolean autentificare_corecta = false;
@@ -395,6 +420,12 @@ public class Functii {
 		}
 	}
 	
+	/**
+	 * Metoda care returneaza o lista de carti care au titlul si autorul specificat
+	 * @param titlu - titlul cartii f=dorite
+	 * @param autor - autorul cartii dorite
+	 * @return lista de carti
+	 */
 	public static List<Carte> returneazaCartea(String titlu, String autor)
 	{
 		List<Carte> cartiPosibile = new ArrayList<>();
@@ -406,6 +437,11 @@ public class Functii {
 		return cartiPosibile;
 	}
 	
+	/**
+	 * Metoda pentru alegerea id-ului cartii pentru rezervare
+	 * @param carti - lista de carti din care se poate alege
+	 * @return - id-ul cartii
+	 */
 	public static int alegeIdCartePtRezervare(List<Carte> carti)
 	{
 		boolean idCorect=false;
@@ -429,6 +465,11 @@ public class Functii {
 		return id;
 	}
 	
+	/**
+	 * Metoda pentru alegerea id-ului exemplarului care se doreste a fi rezervat
+	 * @param idCarte- id-ul cartii  
+	 * @return id-ul exemplarului 
+	 */
 	public static int alegeIdExemplarPtRezervare(int idCarte) {
 		
 		List<Exemplar> exemplare = new ArrayList<>();
@@ -445,6 +486,12 @@ public class Functii {
 		return  id;
 	}
 
+	/**
+	 * Metoda pentru realizarea unei rezervari pentru un exemplar
+	 * @param cit - obect de tip cititor care face rezervarea
+	 * @param idCarte - id-ul cartii rezervate
+	 * @param idExemplar - id-ul exemplarului rezervat
+	 */
 	public static void realizeazaRezervare(Cititor cit, int idCarte, int idExemplar ) {
 		Rezervare rez = cit.rezervaExemplar(idExemplar);
 		
@@ -479,6 +526,10 @@ public class Functii {
 		
 	}
 	
+	/**
+	 * Metoda pentru alegerea actiunilor in aplicatie pentru un cititor
+	 * @param cit - cititorul care face alegerile
+	 */
 	public static void optiuniCititor(Cititor cit) {
 			int alegere=0;
 			while(alegere<1||alegere>6)
@@ -498,9 +549,12 @@ public class Functii {
 			Functii.anuleazaRezervare(cit);
 			else if(alegere==3)
 				System.exit(0);
-		
 	}
 	
+	/**
+	 * Metoda pentru rezervarea unei carti
+	 * @param cititor - cititorul care face rezevarea
+	 */
 	public static void faRezervare(Cititor cititor) {
 		
 		System.out.println("<<Rezerva o carte>>");
@@ -533,6 +587,10 @@ public class Functii {
 		realizeazaRezervare(cititor, idCartePtRezervare, idExemplarPtRezervare);
 	}
 	
+	/**
+	 * Metoda pentru anularea unei rezervari
+	 * @param cit - cititorul care realizeaza anularea
+	 */
 	public static void anuleazaRezervare(Cititor cit) {
 		
 		List<Rezervare> rezervari = new ArrayList<>(); 
@@ -613,7 +671,10 @@ public class Functii {
 		}
 	
 } 
-	
+	/**
+	 * Metoda pentru alegerea actiunilor din aplicatie pentru rolul de Bibliotecar
+	 * @param sc
+	 */
 	public static void actiuniBibliotecar(Scanner sc)
 	{
 		boolean autentificare_corecta = false;
