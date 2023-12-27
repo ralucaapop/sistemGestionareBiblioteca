@@ -9,7 +9,7 @@ Aceata aplicatie reprezinta un sitem de rezervare si imprumut carti de la o bibl
 Aceasta aplicatie vine in ajutorul persoanelor care doresc sa imprumute o anumita carte de la biblioteca, insa inainte de a merge fizic si a imprumuta cartea, acestia pot sa verifice daca exista un exemplar disponibil si sa faca o rezervare pentru acesta. In momentul in cara acesta rezerva exemplarul, acesta nu va putea fi imprumutat de catre o alta persoana timp de 24 de ore, astfel, in acest timp cititorul poate sa mearga la biblioteca si sa imprumute exemplarul respectiv avand siguranta ca acesta este disponibil. 
 ## Arhitectura
 
-![diagrama clase](documentatie-ghid-utlizare-raport/diagrama-clase1.png)
+![diagrama clase](documentatie-ghid-utlizare-raport/diagramaClase.png)
 
 
 
