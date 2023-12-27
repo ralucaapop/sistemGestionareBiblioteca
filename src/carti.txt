@@ -1,4 +1,4 @@
-1;Ion;roman;Liviu;0;0;3;0
+1;Ion;roman;Liviu;0;1;2;3
 2;Enigma;roman;Calinescu;1;1;0;5
-3;Baltagul;roman;Sadoveanu;2;0;1;3
+3;Baltagul;roman;Sadoveanu;1;1;1;3
 4;Mara;roman;Slavici;1;0;0;12

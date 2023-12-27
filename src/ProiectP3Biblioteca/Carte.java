@@ -81,4 +81,8 @@ public class Carte {
 	public String toString() {
 		return this.idCarte+" "+this.titluCarte+" "+this.autor;
 	}
+	
+	public String afiseazaTitluAutro() {
+		return this.titluCarte+' '+this.autor;
+	}
 }

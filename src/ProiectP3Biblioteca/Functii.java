@@ -318,29 +318,6 @@ public class Functii {
 		}
 	}
 	
-	public static ArrayList<Cititor> creazaContCititor(String email, String nume, String nrTelefon, String parola) {
-		
-		ArrayList<Cititor> cititori = new ArrayList<>();
-		cititori=Functii.citireCititori();
-		boolean nuExistaCNP = true;
-		for(Cititor c: cititori)
-		{
-			if(c.getCNPCititor().equals(email))
-				nuExistaCNP=false;
-		}
-		if(nuExistaCNP==true)
-		{
-			//Cititor cn= Cititor.creareCititorNou(email, nume, nrTelefon, parola);
-			//cititori.add(cn);
-			System.out.println("Noul cont a fost creat");
-		}
-		else {
-			System.out.println("Exista deja un cont inregistrat cu acest CNP");
-		}
-		return cititori;
-	}
-	
-	///fa o functie separata in care verifici daca nu exista deja un cont cu cnp nou si apoi in functie de asta creezi conul, apeleaza metoda in main
 	
 	public static void autentificareCititor(String CNP, String parola) {
 		//
@@ -502,7 +479,30 @@ public class Functii {
 		
 	}
 	
-	public static void optiuniCititor(Cititor cititor) {
+	public static void optiuniCititor(Cititor cit) {
+			int alegere=0;
+			while(alegere<1||alegere>6)
+			{	
+				System.out.println("\nACTIUNI POSIBILE:\n1.Fa o rezervare\n2.Anuleaza o rezervare\n3.EXIT");
+				Scanner sc1 = new Scanner(System.in);
+				System.out.print("Alege NUMARUL actiunii dorite:");
+				alegere=Integer.parseInt(sc1.next());
+				
+				if(alegere<0||alegere>5)
+					System.out.println("ALEGERE INVALIDA. Trebuie sa selectati un numar din multimea{1,2,3}");
+			}
+			
+			if(alegere==1)
+			Functii.faRezervare(cit);
+			else if(alegere==2)
+			Functii.anuleazaRezervare(cit);
+			else if(alegere==3)
+				System.exit(0);
+		
+	}
+	
+	public static void faRezervare(Cititor cititor) {
+		
 		System.out.println("<<Rezerva o carte>>");
 		boolean carteGasita=false;
 		List<Carte> carti = new ArrayList<>();
@@ -528,10 +528,91 @@ public class Functii {
 			for(Carte c:carti)
 				System.out.println(c);
 		}
-		int idCartePtImprumut=alegeIdCartePtRezervare(carti);
-		int idExemplarPtImprumut=alegeIdExemplarPtRezervare(idCartePtImprumut);
-		realizeazaRezervare(cititor, idCartePtImprumut, idExemplarPtImprumut);
+		int idCartePtRezervare=alegeIdCartePtRezervare(carti);
+		int idExemplarPtRezervare=alegeIdExemplarPtRezervare(idCartePtRezervare);
+		realizeazaRezervare(cititor, idCartePtRezervare, idExemplarPtRezervare);
 	}
+	
+	public static void anuleazaRezervare(Cititor cit) {
+		
+		List<Rezervare> rezervari = new ArrayList<>(); 
+		rezervari=Functii.citireRezervari();
+		
+		String cnpCititor=cit.getCNPCititor();
+		
+		System.out.println("Rezervarile tale");
+		
+		
+		List<Exemplar> exemplare = new ArrayList<>();
+		exemplare=Functii.citireExemplar();
+		
+		List<Carte> carti = new ArrayList<>();
+		carti=Functii.citireCarti();
+		
+		List<Integer> idExemplareRez = new ArrayList<>();
+		
+		System.out.println("ID Exemplar TITLU AUTOR");
+		
+		for(Rezervare i:rezervari)
+		{
+			if(i.getCNPCititor().equals(cnpCititor))
+				for(Exemplar e:exemplare)
+					if(e.getIdExemplar()==i.getIdExemplar())
+						for(Carte cart:carti)
+							if(cart.getIdCarte()==e.getIdCarte())
+								{
+									System.out.println(e.getIdExemplar() + " " + cart.afiseazaTitluAutro());
+									idExemplareRez.add(e.getIdExemplar());
+								}
+		}
+		
+		boolean idExemplarCorect=false;
+		int idExemplar=0;
+		Scanner sc1 = new Scanner(System.in);
+		while(!idExemplarCorect) {
+			
+			System.out.println("Alegeti id-ul corespunzator exemplarului pentru care doriti sa anulati rezervarea");
+			idExemplar=Integer.parseInt(sc1.next());
+			if(idExemplareRez.contains(idExemplar))
+				{
+					idExemplarCorect=true;
+					break;
+				}
+			else {System.out.print("Acest id este incorect. INCEARCA IAR");}
+		}
+		
+		if(idExemplarCorect)
+		{
+			for(Rezervare i: rezervari)
+				if(i.getIdExemplar()==idExemplar)
+					{
+						rezervari.remove(i);
+						break;
+					}
+			
+			int idCarte=0;
+			for(Exemplar e:exemplare)
+				if(e.getIdExemplar()==idExemplar)
+				{
+					e.setStatus(status.DISPONIBILA);
+					idCarte=e.getIdCarte();
+					break;
+				}
+			
+			for(Carte c:carti) 
+				if(c.getIdCarte()==idCarte)
+				{
+					c.setNrExemplareDisponibile(c.getNrExemplareDisponibile()+1);
+					c.setNrExemplareRezervate(c.getNrExemplareRezervate()-1);
+					break;
+				}
+			Functii.scrieCarti(carti);
+			Functii.scrieExemplare(exemplare);
+			Functii.scrieRezervari(rezervari);
+			System.out.println("Rezervare anulata cu Succes");
+		}
+	
+} 
 	
 	public static void actiuniBibliotecar(Scanner sc)
 	{
@@ -594,7 +675,7 @@ public class Functii {
 			else if(alegere==4)
 			FunctiiBibliotecar.realizeazaImprumutP1();
 			else if(alegere==5)
-			{}//realizeazaretur();
+			FunctiiBibliotecar.realizeazaRetur();
 			else if(alegere==6)
 				System.exit(0);
 		}

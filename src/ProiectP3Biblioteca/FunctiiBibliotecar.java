@@ -313,4 +313,103 @@ public class FunctiiBibliotecar {
 		Cititor cititor=determinaCititorulCareImprumutaCartea();
 		realizeazaImprumutP2(cititor, idCartePtImprumut, idExemplarPtImprumut);
 	}
+	
+	public static void realizeazaRetur() {
+		
+		boolean cititorCorect =false;
+		Scanner sc = new Scanner(System.in);
+		String cnpCititor="0";
+		
+		List<Cititor> cititori = new ArrayList<>();
+		cititori=Functii.citireCititori();
+		
+		while(!cititorCorect) {
+			System.out.print("Introduceti CNP-ul cititorului: ");
+			cnpCititor=sc.next();
+			for(Cititor c: cititori)
+			{
+				if(c.getCNPCititor().equals(cnpCititor))
+				{
+					cititorCorect=true;
+					break;
+				}
+			}
+			if(!cititorCorect)
+				System.out.println("Acest CNP nu corespunde nici unui cititor! INCEARCA IAR\n");
+		}
+		if(cititorCorect) {
+			System.out.println("Imprumuturile acestui cititor");
+			
+			List<Imprumut> imprumuturi = new ArrayList<>();
+			imprumuturi=Functii.citireImprumuturi();
+			
+			List<Exemplar> exemplare = new ArrayList<>();
+			exemplare=Functii.citireExemplar();
+			
+			List<Carte> carti = new ArrayList<>();
+			carti=Functii.citireCarti();
+			
+			List<Integer> idExemplareImp = new ArrayList<>();
+			
+			System.out.println("ID Exemplar TITLU AUTOR");
+			for(Imprumut i:imprumuturi)
+			{
+				if(i.getCNPCititor().equals(cnpCititor))
+					for(Exemplar e:exemplare)
+						if(e.getIdExemplar()==i.getIdExemplar())
+							for(Carte cart:carti)
+								if(cart.getIdCarte()==e.getIdCarte())
+									{
+										System.out.println(e.getIdExemplar() + " " + cart.afiseazaTitluAutro());
+										idExemplareImp.add(e.getIdExemplar());
+									}
+			}
+			
+			boolean idExemplarCorect=false;
+			int idExemplar=0;
+			Scanner sc1 = new Scanner(System.in);
+			while(!idExemplarCorect) {
+				
+				System.out.println("Alegeti id-ul corespunzator exemplarului pentru care doriti sa reazlizati retur");
+				idExemplar=Integer.parseInt(sc1.next());
+				if(idExemplareImp.contains(idExemplar))
+					{
+						idExemplarCorect=true;
+						break;
+					}
+				else {System.out.print("Acest id este incorect. INCEARCA IAR");}
+			}
+			
+			if(idExemplarCorect)
+			{
+				for(Imprumut i:imprumuturi)
+					if(i.getIdExemplar()==idExemplar)
+						{
+							imprumuturi.remove(i);
+							break;
+						}
+				
+				int idCarte=0;
+				for(Exemplar e:exemplare)
+					if(e.getIdExemplar()==idExemplar)
+					{
+						e.setStatus(status.DISPONIBILA);
+						idCarte=e.getIdCarte();
+						break;
+					}
+				
+				for(Carte c:carti) 
+					if(c.getIdCarte()==idCarte)
+					{
+						c.setNrExemplareDisponibile(c.getNrExemplareDisponibile()+1);
+						c.setNrExemplareImprumutate(c.getNrExemplareImprumutate()-1);
+						break;
+					}
+				Functii.scrieCarti(carti);
+				Functii.scrieExemplare(exemplare);
+				Functii.scrieImprumuturi(imprumuturi);
+				System.out.println("Exemplar Returnat cu Succes");
+			}
+		}
+	}
 }
