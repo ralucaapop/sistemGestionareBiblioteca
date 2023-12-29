@@ -1,13 +1,21 @@
 package ProiectP3Biblioteca;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.mysql.cj.jdbc.DatabaseMetaData;
+import com.mysql.cj.xdevapi.Statement;
+
 public class MainClasProiectP3Biblioteca {
+	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
+	public static final String DB_URL = "jdbc:mysql://localhost:3306/biblioteca";
 	public static void main(String[] args)
 	{
-		
 		boolean alegereCorecta=false;
 		while(!alegereCorecta)
 		{		
@@ -26,6 +34,4 @@ public class MainClasProiectP3Biblioteca {
 			else System.out.println("Alegerea nu este corecta.Aceasta trebuie sa fie un numar din multimea {1,2,3}\n");
 		}
 	}
-	
-	
 }
