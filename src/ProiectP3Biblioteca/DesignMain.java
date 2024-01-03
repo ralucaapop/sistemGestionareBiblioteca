@@ -6,6 +6,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,24 +40,30 @@ public class DesignMain extends JFrame {
 		JPanel panelMain = new JPanel();
 		panelMain.setLayout(new BoxLayout(panelMain, BoxLayout.Y_AXIS));
 		panelMain.setAlignmentX(Component.CENTER_ALIGNMENT);
-        //panelMain.setAlignmentY(Component.CENTER_ALIGNMENT);
+		
 		Component spatiuIntreComponente = Box.createVerticalStrut(20); 
-
-		getContentPane().setBackground(new Color(230, 230, 250)); 
-        panelMain.setBackground(new Color(230, 230, 250));
+		Color maroonColor = new Color(128, 0, 0);
+		Color whiteColor = new Color(248, 250, 229);
+		
+		getContentPane().setBackground(whiteColor); 
+        panelMain.setBackground(whiteColor);
  
 		this.setTitle("Main");
 		this.setSize(650, 500);
 		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		
+        Font titleFont = new Font("Arial", Font.BOLD, 20);
+
 		etichetaTitlu=new JLabel("ALEGE ROLUL TAU");
+		etichetaTitlu.setFont(titleFont);
+        etichetaTitlu.setForeground(maroonColor);
+        etichetaTitlu.setAlignmentX(CENTER_ALIGNMENT);
 		
 		Font fontTitlu = new Font(etichetaTitlu.getFont().getName(), Font.TRUETYPE_FONT, 30);
 
-        // Set the larger font for the JLabel
-        etichetaTitlu.setFont(fontTitlu);
+       
 
-        
+
 		cititor = new JButton("Cititor");
 		bibliotecar = new JButton("Bibliotecar");
 		exit = new JButton("Exit");
@@ -115,6 +123,12 @@ public class DesignMain extends JFrame {
 		this.add(panelMain);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
+		setLayout(new GridBagLayout()); 
+	     GridBagConstraints gbc = new GridBagConstraints();
+	     gbc.gridx = 0;
+	     gbc.gridy = 0;
+	     gbc.fill = GridBagConstraints.CENTER;
+	     add(panelMain, gbc);
 	
 	}
 	private void stylizeButton(JButton button) {
@@ -122,5 +136,7 @@ public class DesignMain extends JFrame {
         button.setBackground(new Color(0, 100, 0));
         button.setFocusPainted(false); // Remove focus border
         button.setFont(new Font(button.getFont().getName(), Font.BOLD, 16));
+        button.setAlignmentX(CENTER_ALIGNMENT);
+
     }
 }

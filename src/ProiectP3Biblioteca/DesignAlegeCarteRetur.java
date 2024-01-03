@@ -1,6 +1,11 @@
 package ProiectP3Biblioteca;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -29,19 +34,43 @@ public class DesignAlegeCarteRetur extends JFrame{
 		JPanel panelAlegeRetur = new JPanel();
 		panelAlegeRetur.setLayout(new BoxLayout(panelAlegeRetur, BoxLayout.Y_AXIS));
 		
+		 Color maroonColor = new Color(128, 0, 0);
+			Color whiteColor = new Color(248, 250, 229);
+			
+			getContentPane().setBackground(whiteColor); 
+			panelAlegeRetur.setBackground(whiteColor);
+
+	        Color maroonColor1 = new Color(128, 0, 0);
+	        
+	        Color darkGreenColor = new Color(0, 100, 0);
+
+	        Font titleFont = new Font("Arial", Font.BOLD, 20);
+	        Font labelFont = new Font("Arial", Font.PLAIN, 14);
+	        
 		this.setSize(650, 500);
 		this.setTitle("Alege retur");
 		
 		DefaultListModel<AfisareImprumutri> listModel;
 		
 		label = new JLabel("ID EXEMPLAR TITLU AUTOR");
+		label.setFont(titleFont);
+		label.setForeground(maroonColor);
+		label.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
 	    alegeId = new JLabel("Alege id-ul exemplarului pentru care doresti sa il returnezi");
+	    alegeId.setFont(labelFont);
+	    alegeId.setForeground(maroonColor);
+	    alegeId.setAlignmentX(Component.CENTER_ALIGNMENT);
 		id=new JTextField(20);
 		
 	    selecteaza=new JButton("Selecteaza");
-	    
-		listModel = new DefaultListModel<>();
+
+	    selecteaza.setAlignmentX(Component.CENTER_ALIGNMENT);
+	    selecteaza.setBackground(darkGreenColor);
+	    selecteaza.setForeground(whiteColor);
 		
+		listModel = new DefaultListModel<>();
+	
 		List<AfisareImprumutri> imprumutri=FunctiiBibliotecar.gasesteImprumuturileCititorului(cnp);
        
 		for(AfisareImprumutri c: imprumutri)
@@ -84,7 +113,14 @@ public class DesignAlegeCarteRetur extends JFrame{
 		selecteaza.addActionListener(actRez);
 		this.setTitle("Realizeaza Retur");
 		
-		this.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+		setLayout(new GridBagLayout()); 
+		GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.CENTER;
+        add(panelAlegeRetur, gbc);
+		
 		this.add(panelAlegeRetur);
 		this.setLocationRelativeTo(null);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -1,6 +1,10 @@
 package ProiectP3Biblioteca;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -27,19 +31,42 @@ public class DesignAutentificareBibliotecar extends JFrame{
 		JPanel panelLoginCititor = new JPanel();
 		panelLoginCititor.setLayout(new BoxLayout(panelLoginCititor, BoxLayout.Y_AXIS));
 	
+		    Color maroonColor = new Color(128, 0, 0);
+			Color whiteColor = new Color(248, 250, 229);
+			
+			getContentPane().setBackground(whiteColor); 
+			panelLoginCititor.setBackground(whiteColor);
+
+	        Color maroonColor1 = new Color(128, 0, 0);
+	        
+	        Color darkGreenColor = new Color(0, 100, 0);
+
+	        Font titleFont = new Font("Arial", Font.BOLD, 20);
+	        Font labelFont = new Font("Arial", Font.PLAIN, 14);
+		
 		etichetaTitlu1=new JLabel("INTRA IN CONTUL TAU");
+		etichetaTitlu1.setFont(titleFont);
+	    etichetaTitlu1.setForeground(maroonColor);
+
 		etichetaID = new JLabel("Introdu ID-UL de angajat");
-		etichetaID.setPreferredSize(new Dimension(60,12));
+		etichetaID.setPreferredSize(new Dimension(120, 20));
+	    etichetaID.setFont(labelFont);
+	    etichetaID.setForeground(darkGreenColor);
+		
+		
 
 		etichetaParola = new JLabel("IntroduParola");
-		etichetaParola.setPreferredSize(new Dimension(60,12));
-		
+		etichetaParola.setPreferredSize(new Dimension(120, 20));
+	    etichetaParola.setFont(labelFont);
+	    etichetaParola.setForeground(darkGreenColor);	
+	    
 		LOGIN = new JButton("LOGIN");
-
+		LOGIN.setBackground(maroonColor);
+	    LOGIN.setForeground(whiteColor);
+	    
 		id = new JTextField(13);
 		parola = new JTextField(20);
 		
-		etichetaTitlu1.setHorizontalAlignment(SwingUtilities.RIGHT);
 
 		panelLoginCititor.add(etichetaTitlu1);
 		panelLoginCititor.add(etichetaID);
@@ -88,7 +115,14 @@ public class DesignAutentificareBibliotecar extends JFrame{
 		};
 		
 		LOGIN.addActionListener(actLOGIN);
+		  setLayout(new GridBagLayout());
 
+	       
+	        GridBagConstraints gbc = new GridBagConstraints();
+	        gbc.gridx = 0;
+	        gbc.gridy = 0;
+	        gbc.fill = GridBagConstraints.CENTER;
+	        add(panelLoginCititor, gbc);
         this.add(panelLoginCititor);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

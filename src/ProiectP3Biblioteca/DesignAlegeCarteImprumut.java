@@ -1,6 +1,12 @@
 package ProiectP3Biblioteca;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -33,14 +39,42 @@ public class DesignAlegeCarteImprumut extends JFrame{
 		this.setSize(650, 500);
 		this.setTitle("Alege carte pentru imprumut");
 		
+		Color maroonColor = new Color(128, 0, 0);
+		Color whiteColor = new Color(248, 250, 229);
+			
+			getContentPane().setBackground(whiteColor); 
+			panelAlegeImprumut.setBackground(whiteColor);
+
+	        Color maroonColor1 = new Color(128, 0, 0);
+	        
+	        Color darkGreenColor = new Color(0, 100, 0);
+
+	        Font titleFont = new Font("Arial", Font.BOLD, 20);
+	        Font labelFont = new Font("Arial", Font.PLAIN, 14);
+
+		
 		DefaultListModel<Carte> listModel;
 		
 		label = new JLabel("ID CARTE TITLU AUTOR");
+		label.setFont(titleFont);
+		label.setForeground(maroonColor);
+		label.setAlignmentX(Component.CENTER_ALIGNMENT);
+	    
 	    alegeId = new JLabel("Alege id-ul cartii pe care doresti sa o imprumuti");
+	    //alegeId.setPreferredSize(new Dimension(120, 20));
+	    alegeId.setFont(labelFont);
+	    alegeId.setForeground(darkGreenColor);
+	    alegeId.setAlignmentX(Component.CENTER_ALIGNMENT);
+
 		id=new JTextField(20);
 	    imprumuta=new JButton("Imprumut");
 	    
 	    cnpCititor=new JLabel("CNP-ul cititorului care imprumuta cartea");
+	   
+	    cnpCititor.setFont(labelFont);
+	    cnpCititor.setForeground(darkGreenColor);
+	    cnpCititor.setAlignmentX(Component.CENTER_ALIGNMENT);
+	    
 	    cnpC=new JTextField(20);
 	    
 		listModel = new DefaultListModel<>();
@@ -96,8 +130,18 @@ public class DesignAlegeCarteImprumut extends JFrame{
 		
 		imprumuta.addActionListener(actRez);
 		this.setTitle("Imprumuta Carte");
+		imprumuta.setAlignmentX(Component.CENTER_ALIGNMENT);
+		imprumuta.setBackground(darkGreenColor);
+		imprumuta.setForeground(whiteColor);
 		
-		this.setLayout(new FlowLayout(FlowLayout.LEFT));
+		setLayout(new GridBagLayout()); 
+		GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.CENTER;
+        add(panelAlegeImprumut, gbc);
+        
+		
 		this.add(panelAlegeImprumut);
 		this.setLocationRelativeTo(null);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

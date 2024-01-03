@@ -1,6 +1,11 @@
 package ProiectP3Biblioteca;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -42,8 +47,50 @@ public class DesignOptiuniBibliotecar extends JFrame {
 	revizuitesteRezervari = new JButton("REVIZUIESTE REZERVARILE");
 	exit = new JButton("Exit");
 	
-	etichetaTitlu.setHorizontalAlignment(SwingUtilities.RIGHT);
+	etichetaTitlu.setAlignmentX(Component.CENTER_ALIGNMENT);	
 	
+	Color maroonColor = new Color(128, 0, 0);
+	Color whiteColor = new Color(248, 250, 229);
+	
+	getContentPane().setBackground(whiteColor); 
+	panelOptiuniCititor.setBackground(whiteColor);
+
+    Color maroonColor1 = new Color(128, 0, 0);
+    
+    Color darkGreenColor = new Color(0, 100, 0);
+
+    Font titleFont = new Font("Arial", Font.BOLD, 20);
+    Font labelFont = new Font("Arial", Font.PLAIN, 14);
+	
+    etichetaTitlu.setFont(titleFont);
+    etichetaTitlu.setForeground(maroonColor);
+    
+    adaugaCarte.setAlignmentX(Component.CENTER_ALIGNMENT);
+    adaugaExemplar.setAlignmentX(Component.CENTER_ALIGNMENT);
+    adaugaCititor.setAlignmentX(Component.CENTER_ALIGNMENT);
+    realizeazaImprumut.setAlignmentX(Component.CENTER_ALIGNMENT);
+    realizeazaRetur.setAlignmentX(Component.CENTER_ALIGNMENT);
+    revizuitesteRezervari.setAlignmentX(Component.CENTER_ALIGNMENT);
+    exit.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    adaugaCarte.setBackground(darkGreenColor);
+    adaugaCarte.setForeground(whiteColor);
+    adaugaExemplar.setBackground(darkGreenColor);
+    adaugaExemplar.setForeground(whiteColor);
+    adaugaCititor.setBackground(darkGreenColor);
+    adaugaCititor.setForeground(whiteColor);
+    realizeazaImprumut.setBackground(darkGreenColor);
+    realizeazaImprumut.setForeground(whiteColor);
+    realizeazaRetur.setBackground(darkGreenColor);
+    realizeazaRetur.setForeground(whiteColor);
+    revizuitesteRezervari.setBackground(darkGreenColor);
+    revizuitesteRezervari.setForeground(whiteColor);
+    exit.setBackground(darkGreenColor);
+    exit.setForeground(whiteColor);
+    
+    adaugaCarte.setFocusPainted(false); 
+    
+    panelOptiuniCititor.add(etichetaTitlu);
 	panelOptiuniCititor.add(adaugaCarte);
 	panelOptiuniCititor.add(adaugaExemplar);
 	panelOptiuniCititor.add(adaugaCititor);
@@ -114,6 +161,16 @@ public class DesignOptiuniBibliotecar extends JFrame {
 			cit.setVisible(true);
 		}
 	};
+	
+	 setLayout(new GridBagLayout());
+
+     
+     GridBagConstraints gbc = new GridBagConstraints();
+     gbc.gridx = 0;
+     gbc.gridy = 0;
+     gbc.fill = GridBagConstraints.CENTER;
+     add(panelOptiuniCititor, gbc);
+
 	
 	exit.addActionListener(actE);
 	adaugaCarte.addActionListener(actAddCart);

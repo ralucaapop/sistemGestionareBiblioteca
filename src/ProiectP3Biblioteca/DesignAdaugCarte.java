@@ -1,6 +1,12 @@
 package ProiectP3Biblioteca;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -36,15 +42,55 @@ public class DesignAdaugCarte extends JFrame{
 	
 	this.setTitle("Adauga carte noua in biblioteca");
 	this.setSize(650, 500);
-	this.setLayout(new FlowLayout(FlowLayout.LEFT));
+	Color maroonColor = new Color(128, 0, 0);
+	Color whiteColor = new Color(248, 250, 229);
 	
+	getContentPane().setBackground(whiteColor); 
+	panelAdaugaCarte.setBackground(whiteColor);
+
+    Color maroonColor1 = new Color(128, 0, 0);
+    
+    Color darkGreenColor = new Color(0, 100, 0);
+
+    Font titleFont = new Font("Arial", Font.BOLD, 20);
+    Font labelFont = new Font("Arial", Font.PLAIN, 14);
+	
+   
 	titluPg = new JLabel("Adauga o carte noua in biblioteca");
 	
+	 titluPg.setFont(titleFont);
+	 titluPg.setForeground(maroonColor);
+		
+	
 	idCarte=new JLabel("ID-ul cartii");
+	idCarte.setPreferredSize(new Dimension(120, 20));
+	idCarte.setFont(labelFont);
+	idCarte.setAlignmentX(Component.CENTER_ALIGNMENT);
+	idCarte.setForeground(darkGreenColor);
+	
 	titluCarte=new JLabel("Titlu cartii");
+	titluCarte.setPreferredSize(new Dimension(120, 20));
+	titluCarte.setFont(labelFont);
+	titluCarte.setForeground(darkGreenColor);
+	titluCarte.setAlignmentX(Component.CENTER_ALIGNMENT);
+
 	autorCarte = new JLabel("Autorul cartii");
+	autorCarte.setPreferredSize(new Dimension(120, 20));
+	 autorCarte.setFont(labelFont);
+	 autorCarte.setForeground(darkGreenColor);
+	 autorCarte.setAlignmentX(Component.CENTER_ALIGNMENT);
+
 	genCarte = new JLabel("Genul Cartii");
+	genCarte.setPreferredSize(new Dimension(120, 20));
+	genCarte.setFont(labelFont);
+	genCarte.setForeground(darkGreenColor);
+	genCarte.setAlignmentX(Component.CENTER_ALIGNMENT);
+
 	nrZileImpCarte= new JLabel("Numarul de zile de imprumut al cartii");
+	nrZileImpCarte.setFont(labelFont);
+	nrZileImpCarte.setForeground(darkGreenColor);
+	nrZileImpCarte.setAlignmentX(Component.CENTER_ALIGNMENT);
+
 	
 	id = new JTextField(20);
 	titlu = new JTextField(20);
@@ -99,6 +145,17 @@ public class DesignAdaugCarte extends JFrame{
 		}
 	};
 	
+	setLayout(new GridBagLayout()); 
+     GridBagConstraints gbc = new GridBagConstraints();
+     gbc.gridx = 0;
+     gbc.gridy = 0;
+     gbc.fill = GridBagConstraints.CENTER;
+     add(panelAdaugaCarte, gbc);
+
+    adauga.setAlignmentX(Component.CENTER_ALIGNMENT);
+    adauga.setBackground(maroonColor);
+    adauga.setForeground(whiteColor);
+
 	adauga.addActionListener(actAdd);
 	this.add(panelAdaugaCarte);
     this.setLocationRelativeTo(null);
