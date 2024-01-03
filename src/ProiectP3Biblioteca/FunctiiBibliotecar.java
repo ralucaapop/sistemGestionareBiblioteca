@@ -24,6 +24,62 @@ public class FunctiiBibliotecar {
 	/**
 	 * Metoda pentru adaugarea uneoi noi carti in binlioteca
 	 */
+	
+	public static boolean verificaIdCarte(int id) {
+		
+		boolean IDValid=true;
+		try {
+			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
+			java.sql.Statement st = connection.createStatement();
+			try {
+					String SQL_SELECT = "select * from carti where idCarte='"+id+"'";
+					ResultSet resultSet = st.executeQuery(SQL_SELECT);
+					while(resultSet.next())
+						IDValid=false;
+						if(IDValid==false)
+						{	
+							System.out.println("Acest ID apartine altei carti.");
+						}
+			}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return IDValid;
+	}
+	
+	public static void adaugaCarteNoua(int id, String titlu, String autor, String gen, int nrZile) {
+		try {
+			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
+			java.sql.Statement st = connection.createStatement();
+
+			
+				String SQL_INSERT = "INSERT INTO carti VALUES(?,?,?,?,0,0,0,?)"; 
+				
+				try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_INSERT)) {
+				    preparedStatement.setInt(1, id);
+				    preparedStatement.setString(2, titlu);
+				    preparedStatement.setString(3, gen);
+				    preparedStatement.setString(4, autor);
+				    preparedStatement.setInt(5, nrZile);
+
+				    int affectedRows = preparedStatement.executeUpdate();
+				    if(affectedRows>0)
+				    	System.out.println("Carte inregistrata cu succes.");	
+				} catch (SQLException e) {
+				    e.printStackTrace();
+				}
+			}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
+	
+	//nefolosita
 	public static void adaugaCarteNoua() {
 		
 		boolean IDValid=true;
@@ -100,6 +156,90 @@ public class FunctiiBibliotecar {
 		}
 			
 	}
+	
+	public static boolean verificaIdCartePtExemplar(int idCarte) {
+		boolean idCarteValid=false;
+		try {
+			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
+			java.sql.Statement st = connection.createStatement();
+			
+					String SQL_SELECT1 = "select * from carti where idCarte='"+idCarte+"'";
+					ResultSet resultSet1 = st.executeQuery(SQL_SELECT1);
+					while(resultSet1.next())
+					{
+						idCarteValid=true;
+						break;
+					}
+					
+		}catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		return idCarteValid;
+	}
+	
+	public static boolean verificaIdExemplar(int id) {
+		boolean IDValid=true;
+		
+		try {
+			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
+			java.sql.Statement st = connection.createStatement();
+
+				try {
+					String SQL_SELECT = "select * from exemplare where idExemplar='"+id+"'";
+					ResultSet resultSet = st.executeQuery(SQL_SELECT);
+					while(resultSet.next())
+						IDValid=false;
+					
+					}catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+			}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				}
+		return IDValid;
+	}
+	
+	public static void adaugaExemplarNou(int idE, int idC) {
+		try {
+			
+			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
+			java.sql.Statement st = connection.createStatement();
+			
+			String SQL_SELECT="Select * from exemplare where idCarte = '"+idC+"'";
+			ResultSet resultSet = st.executeQuery(SQL_SELECT);
+			int nred=0;
+			while(resultSet.next())
+				nred=resultSet.getInt("nrcd");
+			
+			nred++;
+			
+			String SQL_UPDATE="UPDATE carti SET nrcd ='"+nred+"' WHERE (idCarte = '"+idC+"')";
+			st.executeUpdate(SQL_UPDATE);
+						
+			String SQL_INSERT = "INSERT INTO exemplare VALUES(?,?,?)"; 
+			
+
+			try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_INSERT)) {
+			    preparedStatement.setInt(1, idE);
+			    preparedStatement.setInt(2, idC);
+			    preparedStatement.setString(3, "DISPONIBILA");
+			    int affectedRows = preparedStatement.executeUpdate();
+			    if(affectedRows>0)
+			    	System.out.println("Exemplar adaugat cu succes.");	
+			} catch (SQLException e) {
+			    e.printStackTrace();
+			}
+}catch (SQLException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}
+
+	}
+	
+	//nefolosita
 	
 	/**
 	 * Metoda pentru adaugarea unui nou exemplar in biblioteca
@@ -202,6 +342,66 @@ public class FunctiiBibliotecar {
 		}
 		
 	}
+	
+	public static boolean verLungimeCnp(String cnp) {
+		boolean CNPValid=true;
+		if(cnp.length()!=13)
+			CNPValid=false;
+		return CNPValid;
+	}
+	
+	public static boolean cnpValidPtInregistrare(String cnp)
+	{
+		boolean CNPValid=true;
+		try {
+			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
+			java.sql.Statement st = connection.createStatement();
+
+			try {
+
+						String SQL_SELECT = "select * from cititori where CNP='"+cnp+"'";
+						ResultSet resultSet = st.executeQuery(SQL_SELECT);
+						while(resultSet.next())
+							CNPValid=false;
+					
+			}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	 }
+		return CNPValid;
+	}
+	
+	public static void adaugaCititorNou(String cnp,String nume, String nrTel, String parola ) {
+		try {
+			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
+			java.sql.Statement st = connection.createStatement();
+			String SQL_INSERT = "INSERT INTO cititori VALUES(?,?,?,?)"; 
+			
+			try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_INSERT)) {
+			    preparedStatement.setString(1, cnp);
+			    preparedStatement.setString(2, nume);
+			    preparedStatement.setString(3, nrTel);
+			    preparedStatement.setString(4, parola);
+
+			    int affectedRows = preparedStatement.executeUpdate();
+			    if(affectedRows>0)
+			    	System.out.println("Inregistrare efectuata cu succes.");	
+			} catch (SQLException e) {
+			    e.printStackTrace();
+			}
+			
+	}catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+
+	}
+	
 	/**
 	 * Metoda pentru creearea unui noi cont de cititor
 	 */
@@ -321,6 +521,29 @@ public class FunctiiBibliotecar {
 		return  id;
 	}
 	
+	public static boolean verificaCnpPtImprumut(String cnp) {
+		boolean CNPValid=false;
+		try {
+			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
+			java.sql.Statement st = connection.createStatement();
+
+			try {
+					String SQL_SELECT = "select * from cititori where CNP='"+cnp+"'";
+					ResultSet resultSet = st.executeQuery(SQL_SELECT);
+					while(resultSet.next())
+						CNPValid=true;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				}
+		}
+	catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}	
+		return CNPValid;
+	}
+	
 	/**
 	 * Metoda pentru determinarea cititorului care doreste sa faca un imprumut
 	 * @return un obiect de tipul Cititor
@@ -414,7 +637,7 @@ public class FunctiiBibliotecar {
 	 * @param idCarte - id-ul cartii care se doreste a fi imprumutata
 	 * @param idExemplar - id-ul exemplarului corespunzator cartii
 	 */
-	public static void realizeazaImprumutP2(Cititor cit, int idCarte, int idExemplar ) {
+	public static void realizeazaImprumutP2(String cnp, int idCarte, int idExemplar ) {
 		Connection connection;
 		try {
 			connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
@@ -446,7 +669,7 @@ public class FunctiiBibliotecar {
 			String SQL_INSERT = "INSERT INTO imprumuturi VALUES (?, ?, ?)";
 
 			try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_INSERT)) {
-			    preparedStatement.setString(1, cit.getCNPCititor());
+			    preparedStatement.setString(1, cnp);
 			    preparedStatement.setInt(2, idExemplar);
 			    preparedStatement.setString(3, LocalDate.now().format(formatter));
 
@@ -505,8 +728,76 @@ public class FunctiiBibliotecar {
 		int idExemplarPtImprumut=alegeIdExemplarPtImprumut(idCartePtImprumut);
 		System.out.println(idExemplarPtImprumut);
 		Cititor cititor=determinaCititorulCareImprumutaCartea();
-		realizeazaImprumutP2(cititor, idCartePtImprumut, idExemplarPtImprumut);
+		realizeazaImprumutP2(cititor.getCNPCititor(), idCartePtImprumut, idExemplarPtImprumut);
 	}
+	
+public static boolean verificaIdExemplarAlesPtRetur(List<AfisareImprumutri> imprumuturi, int id) {
+		
+		boolean idExemplarCorect=false;
+		for(AfisareImprumutri r: imprumuturi)
+			if(r.getIdE()==id)
+				{
+					idExemplarCorect=true;
+					break;
+				}
+			
+		return idExemplarCorect;
+	}
+
+	public static void realizeazaRetur(String cnp, int idExemplar) {
+		try {
+			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
+			java.sql.Statement st = connection.createStatement();
+			String SQL_SELECT1="Select * from exemplare where idExemplar = '"+idExemplar+"'";
+			ResultSet resultSet1 = st.executeQuery(SQL_SELECT1);
+			
+			int idCarte=0;
+			while(resultSet1.next())
+			{
+				idCarte=resultSet1.getInt("idCarte");
+			}
+			
+			String SQL_SELECT2="Select * from carti where idCarte = '"+idCarte+"'";
+			ResultSet resultSet2 = st.executeQuery(SQL_SELECT2);
+			int nred=0;
+			int nrei=0;
+			while(resultSet2.next())
+			{
+				nred=resultSet2.getInt("nrcd");
+				nrei=resultSet2.getInt("nrci");
+			}
+			
+			nred++;
+			nrei--;
+			String SQL_UPDATE="UPDATE carti SET nrcd ='"+nred+"' WHERE (idCarte = '"+idCarte+"')";
+			String SQL_UPDATE2="UPDATE carti SET nrci ='"+nrei+"' WHERE (idCarte = '"+idCarte+"')";
+			
+			String SQL_UPDATE1="UPDATE exemplare SET status='DISPONIBILA' WHERE (idExemplar = '"+idExemplar+"')";
+			
+			st.executeUpdate(SQL_UPDATE);
+			st.executeUpdate(SQL_UPDATE1);
+			st.executeUpdate(SQL_UPDATE2);
+			
+			String SQL_DELETE = "DELETE FROM imprumuturi WHERE idExemplar=? and cnpCititor=?";
+
+			try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)) {
+			    preparedStatement.setString(2, cnp);
+			    preparedStatement.setInt(1, idExemplar);
+			    int affectedRows = preparedStatement.executeUpdate();
+			    if(affectedRows>0)
+			    	System.out.println("Returnare efectuata cu succes.");
+				}
+			catch (SQLException e) {
+		    e.printStackTrace();
+			}
+	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
 	
 	/**
 	 * Metoda pentru realizarea returului unui exemplar
@@ -714,5 +1005,33 @@ public class FunctiiBibliotecar {
 	}
 
 
-	
+	public static List<AfisareImprumutri> gasesteImprumuturileCititorului(String cnp){
+		
+		List<AfisareImprumutri> imprumuturi = new ArrayList<>();
+		try {
+			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
+			java.sql.Statement st = connection.createStatement();
+
+			try {
+				String SQL_SELECT = "select i.idExemplar, c.titlu, c.autor from imprumuturi i, carti c, exemplare e1 where i.cnpCititor='"
+						+ ""+cnp+"'and e1.idExemplar=i.idExemplar" + " and e1.idCarte=c.idCarte";
+				ResultSet resultSet = st.executeQuery(SQL_SELECT);
+				while(resultSet.next())
+					{
+						System.out.println(resultSet.getInt("i.idExemplar")+" "+resultSet.getString("c.titlu")+" "+resultSet.getString("c.autor"));
+						AfisareImprumutri r= new AfisareImprumutri(resultSet.getInt("i.idExemplar"),resultSet.getString("c.titlu"),resultSet.getString("c.autor"));
+						imprumuturi.add(r);
+					}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				}
+		}
+	catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}	
+		return imprumuturi;
+
+	}
 }

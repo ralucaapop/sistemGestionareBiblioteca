@@ -24,41 +24,18 @@ import ProiectP3Biblioteca.Exemplar.status;
 public class Functii {
 
 	
-	/**
-	 * Metoda pentru autentificarea in aplicatie a unui cititor
-	 * @param sc - un obiect de tip Scanner
-	 */
-	public static void actiuniCititor(Scanner sc)
+	public static boolean verificaAutentificare(String cnp, String parola)
 	{
-		boolean autentificare_corecta = false;
-			
-		String cnp="nec";
-		String parola="nec";
-	
+		boolean autentificareCorecta = false;
 		try {
 			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
-			while(!autentificare_corecta)
-			{
-				System.out.println("Intra in contul tau\nIntrodu CNP-ul si parola pentru a te putea loga");
-			
-				System.out.print("CNP:");
-				cnp = sc.next();
-				System.out.print("PAROLA:");
-				parola = sc.next();
-				
-				java.sql.Statement st = connection.createStatement();
+		 	System.out.println("Intra in contul tau\nIntrodu CNP-ul si parola pentru a te putea loga");
+		 	java.sql.Statement st = connection.createStatement();
 
 				try {
-					String SQL_SELECT = "select * from CITITORI where cnp='"+cnp+"'";
-					ResultSet resultSet = st.executeQuery(SQL_SELECT);
+					boolean cnpValid=verificaCNPAuth(cnp);
 					
-					int ok=0;
-					
-					while (resultSet.next()) {
-						ok=1;
-						System.out.println("CNP CORECT");
-					}
-					if(ok==0)
+					if(cnpValid==false)
 						System.out.println("CNP invalid, nu exista un utilizator inregistrat cu acest CNP, mai incearca/n");
 					else {
 						String SQL_SELECT1 = "select * from CITITORI where cnp='"+cnp+"' and parola='"+parola+"'";
@@ -76,28 +53,76 @@ public class Functii {
 						else 
 							{
 								System.out.println("Autentificare cu succes");
-								autentificare_corecta=true;
+								autentificareCorecta=true;
 							}
+					} 
+					}catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();}
 					
+		return autentificareCorecta;
+	}
+	
+	public static boolean verificaCNPAuth(String cnp){
+		
+		boolean ok = false;
+		try {
+			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
+		 	System.out.println("Intra in contul tau\nIntrodu CNP-ul si parola pentru a te putea loga");
+		 	java.sql.Statement st = connection.createStatement();
+
+				try {
+					String SQL_SELECT = "select * from CITITORI where cnp='"+cnp+"'";
+					ResultSet resultSet = st.executeQuery(SQL_SELECT);
+					
+					while (resultSet.next()) {
+						ok=true;
+						System.out.println("CNP CORECT");
+					}
+				}catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();}
+		return ok;
+	}
+	
+	/**
+	 * Metoda pentru autentificarea in aplicatie a unui cititor
+	 * @param sc - un obiect de tip Scanner
+	 */
+	public static void actiuniCititor()
+	{
+		Scanner sc = new Scanner(System.in);
+		boolean autentificare_corecta = false;
+			
+		String cnp="nec";
+		String parola="nec";
+	
+		while(!autentificare_corecta)
+			{
+				System.out.println("Intra in contul tau\nIntrodu CNP-ul si parola pentru a te putea loga");
+			
+				System.out.print("CNP:");
+				cnp = sc.next();
+				System.out.print("PAROLA:");
+				parola = sc.next();
+				autentificare_corecta=verificaAutentificare(cnp,parola);
+				
 				if(autentificare_corecta)
 				{
 					Cititor cit = new Cititor(cnp,parola);
 					System.out.println(cnp);
 					optiuniCititor(cit);
 				}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
 	}
 	
 	/**
@@ -138,6 +163,24 @@ public class Functii {
 	 * @param carti - lista de carti din care se poate alege
 	 * @return - id-ul cartii
 	 */
+	public static boolean verificaIdCarteAles(List<Carte> cartiPosibile, int id) {
+		boolean idCorect=false;
+		
+		for(Carte cart: cartiPosibile) {
+			if(cart.getIdCarte()==id)
+				{
+					if(cart.getNrExemplareDisponibile()==0)
+					{
+						System.out.println("Nu exista exemplare disponibile");
+					}
+					else
+					idCorect=true;
+					break;
+				}
+		}
+		return idCorect;
+	}
+	
 	public static int alegeIdCartePtRezervare(List<Carte> cartiPosibile)
 	{
 		boolean idCorect=false;
@@ -324,6 +367,106 @@ public class Functii {
 	 * Metoda pentru anularea unei rezervari
 	 * @param cit - cititorul care realizeaza anularea
 	 */
+	
+	public static List<AfisareRezervari> gasesteRezervarileCititorului(Cititor cit){
+		
+		List<AfisareRezervari> rezervari = new ArrayList<>();
+		try {
+			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
+			java.sql.Statement st = connection.createStatement();
+
+			try {
+					String SQL_SELECT = "select r.idExemplar, c.titlu, c.autor from rezervari r, carti c, exemplare e1 where r.cnpCititor='"
+							+ ""+cit.getCNPCititor()+"'and e1.idExemplar=r.idExemplar" + " and e1.idCarte=c.idCarte";
+					ResultSet resultSet = st.executeQuery(SQL_SELECT);
+					while(resultSet.next())
+					{
+						System.out.println(resultSet.getInt("r.idExemplar")+" "+resultSet.getString("c.titlu")+" "+resultSet.getString("c.autor"));
+						AfisareRezervari r= new AfisareRezervari(resultSet.getInt("r.idExemplar"),resultSet.getString("c.titlu"),resultSet.getString("c.autor"));
+						rezervari.add(r);
+					}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				}
+		}
+	catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}		
+		
+		return rezervari;
+	}
+	
+	public static boolean verificaIdExemplarAles(List<AfisareRezervari> rezervari, int id) {
+		
+		boolean idExemplarCorect=false;
+		for(AfisareRezervari r: rezervari)
+			if(r.getIdE()==id)
+				{
+					idExemplarCorect=true;
+					break;
+				}
+		return idExemplarCorect;
+	}
+	
+	
+	
+	
+	public static void anuleazaRezervare(Cititor cit, int idExemplar) {
+		Connection connection;
+		try {
+		connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
+		java.sql.Statement st= connection.createStatement();
+		String SQL_SELECT="Select * from exemplare where idExemplar = '"+idExemplar+"'";
+		ResultSet resultSet = st.executeQuery(SQL_SELECT);
+		
+		int idCarte=0;
+		while(resultSet.next())
+		{
+			idCarte=resultSet.getInt("idCarte");
+		}
+		
+		String SQL_SELECT1="Select * from carti where idCarte = '"+idCarte+"'";
+		ResultSet resultSet1 = st.executeQuery(SQL_SELECT1);
+		int nred=0;
+		int nrer=0;
+		while(resultSet1.next())
+		{
+			nred=resultSet1.getInt("nrcd");
+			nrer=resultSet1.getInt("nrcr");
+		}
+		
+		nred++;
+		nrer--;
+		String SQL_UPDATE="UPDATE carti SET nrcd ='"+nred+"' WHERE (idCarte = '"+idCarte+"')";
+		String SQL_UPDATE2="UPDATE carti SET nrcr ='"+nrer+"' WHERE (idCarte = '"+idCarte+"')";
+		
+		String SQL_UPDATE1="UPDATE exemplare SET status='DISPONIBILA' WHERE (idExemplar = '"+idExemplar+"')";
+		
+		st.executeUpdate(SQL_UPDATE);
+		st.executeUpdate(SQL_UPDATE1);
+		st.executeUpdate(SQL_UPDATE2);
+		
+		String SQL_DELETE = "DELETE FROM rezervari WHERE idExemplar=? and cnpCititor=?";
+
+		try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)) {
+		    preparedStatement.setString(2, cit.getCNPCititor());
+		    preparedStatement.setInt(1, idExemplar);
+		    int affectedRows = preparedStatement.executeUpdate();
+		    if(affectedRows>0)
+		    	System.out.println("Rezervare anulata cu succes.");	
+		} catch (SQLException e) {
+		    e.printStackTrace();
+		}
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
+
+	///nefolosita
 	public static void anuleazaRezervare(Cititor cit) {
 		
 		
@@ -427,6 +570,33 @@ public class Functii {
 
 		}
 } 
+	
+	public static void adaugaBibliotecarNou(int id, String nume, String nrTel, String email,String parola) {
+		try {
+			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
+			java.sql.Statement st = connection.createStatement();
+			String SQL_INSERT = "INSERT INTO bibliotecari VALUES(?,?,?,?,?)"; 
+			
+			try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_INSERT)) {
+			    preparedStatement.setInt(1, id);
+			    preparedStatement.setString(2, nume);
+			    preparedStatement.setString(3, nrTel);
+			    preparedStatement.setString(4, email);
+			    preparedStatement.setString(5, parola);
+
+			    int affectedRows = preparedStatement.executeUpdate();
+			    if(affectedRows>0)
+			    	System.out.println("Inregistrare efectuata cu succes.");	
+			} catch (SQLException e) {
+			    e.printStackTrace();
+			}
+			
+	}catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		
+}
 	
 	public static void adaugaBibliotecarNou() {
 		System.out.println("Inregistreaza un bibliotecar nou");
@@ -532,43 +702,23 @@ public class Functii {
 		
 	}
 	
-	public static void autentificareBibliotecar()
-	{
-		Scanner sc = new Scanner(System.in);
-		boolean autentificare_corecta = false;
-		
-		int idA=0;
-		String parola="nec";
 	
+	public static boolean verificaAutentificareBibliotecar(int idA, String parola) {
+		
+		boolean autentificareCorecta = false;
 		try {
 			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
-			while(!autentificare_corecta)
-			{
-				System.out.println("Intra in contul tau\nIntrodu ID-ul si parola pentru a te putea loga");
-			
-				System.out.print("ID Angajat:");
-				idA = Integer.parseInt(sc.next());
-				System.out.print("PAROLA:");
-				parola = sc.next();
-				
-				java.sql.Statement st = connection.createStatement();
+		 	System.out.println("Intra in contul tau\nIntrodu CNP-ul si parola pentru a te putea loga");
+		 	java.sql.Statement st = connection.createStatement();
 
 				try {
-					String SQL_SELECT = "select * from bibliotecari where idAngajat='"+idA+"'";
-					ResultSet resultSet = st.executeQuery(SQL_SELECT);
+					boolean idValid=verificaIDAngajat(idA);
 					
-					int ok=0;
-					
-					while (resultSet.next()) {
-						ok=1;
-						System.out.println("ID CORECT");
-					}
-					if(ok==0)
-						System.out.println("ID invalid, nu exista un bibliotecar inregistrat cu acest ID, mai incearca/n");
+					if(idValid==false)
+						System.out.println("ID invalid, nu exista un utilizator inregistrat cu acest ID, mai incearca/n");
 					else {
 						String SQL_SELECT1 = "select * from bibliotecari where idAngajat='"+idA+"' and parola='"+parola+"'";
 						ResultSet resultSet1 = st.executeQuery(SQL_SELECT1);
-						
 						int ok1=0;
 						
 						while (resultSet1.next()) {
@@ -581,10 +731,70 @@ public class Functii {
 						else 
 							{
 								System.out.println("Autentificare cu succes");
-								autentificare_corecta=true;
+								autentificareCorecta=true;
 							}
+					} 
+					}catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();}
 					
+		return autentificareCorecta;
+	}
+	
+	public static boolean verificaIDAngajat(int idA) {
+		boolean idCorect=false;
+		try {
+			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
+			java.sql.Statement st = connection.createStatement();
+
+				try {
+					String SQL_SELECT = "select * from bibliotecari where idAngajat='"+idA+"'";
+					ResultSet resultSet = st.executeQuery(SQL_SELECT);
+					
+					int ok=0;
+					
+					while (resultSet.next()) {
+						idCorect=true;
+						System.out.println("ID CORECT");
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return idCorect;
+	}
+	
+	public static void autentificareBibliotecar()
+	{
+		Scanner sc = new Scanner(System.in);
+		boolean autentificare_corecta = false;
+		
+		int idA=0;
+		String parola="nec";
+	
+		while(!autentificare_corecta)
+			{
+				System.out.println("Intra in contul tau\nIntrodu ID-ul si parola pentru a te putea loga");
+			
+				System.out.print("ID Angajat:");
+				idA = Integer.parseInt(sc.next());
+				System.out.print("PAROLA:");
+				parola = sc.next();
+				
+				boolean idValid=verificaIDAngajat(idA);
+				if(idValid)
+					autentificare_corecta=verificaAutentificareBibliotecar(idA,parola);
+			
 					if(autentificare_corecta==true)
 					{
 						int alegere=0;
@@ -614,16 +824,7 @@ public class Functii {
 						else if(alegere==7)
 							System.exit(0);
 					}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 	}
 	
 }

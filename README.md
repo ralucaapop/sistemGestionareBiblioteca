@@ -23,3 +23,4 @@ Un utilizator cu rol de bibliotecar poate realiza imprumuturi si retunari de car
 ![tabele](documentatie-ghid-utlizare-raport/Tabele.png)
 ### Resurse
 Markdown Guide, [Online] Available: https://www.markdownguide.org/basic-syntax/ [accesed: Mar 14, 1706]
+# proiectP3
