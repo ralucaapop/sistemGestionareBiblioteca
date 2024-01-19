@@ -35,12 +35,13 @@ Exista doua roluri in intermediu aplicatiei: cititor sau bibliotecar.
   
 
 * Un utilizator cu rol de bibliotecar poate realiza imprumuturi si retunari de carti pentru utilizatorii cu rol de cititor. Acesta poate adauga carti sau exemplare noi in baza de date, dar si sa creeze conturi noi de utilizator pentru cititori sau alti bibliotecari
-   ![diagrama usecase](documentatie-ghid-utlizare-raport/bibliotecar.PNG)
+![diagrama usecase](documentatie-ghid-utlizare-raport/bibliotecar.PNG)
 * Dupa intrarea in cont, utilizatorul poate sa aleaga una dintre opiunile de mai jos:
 ![diagrama usecase](documentatie-ghid-utlizare-raport/actiuni_bibliotecar.png)
 * Adaugare carte noua- daca bibliotecarul alege aceasta optiune, atunci acesta va fi redirectionat catre o alta pagina unde va putea introduce informatii despre noua carte pe care doreste sa o adauge in biblioteca. Pentru aceasta, va trebui sa specifice id-ul cartii, titlu, autorul, genul cartii si numarul de zile pentru care un cititor poate imprumuta cartea. Id-ul cartii trebuie sa fie unic, daca exista deja o carte cu id-ul introdus, atunci se va primi un mesaj aferent.
 ![diagrama usecase](documentatie-ghid-utlizare-raport/adauga_carte.png)
 ![diagrama usecase](documentatie-ghid-utlizare-raport/adauga_carte_err.png)
+* Adauga un exemplar in biblioteca- pentru a adauga un nou exemplar in biblioteca, bibliotecarul trebuie sa specifice id-ul cartii aferente. Daca id-ul este gresit(daca nu exista nici o carte cu id-ul specificat), bibliotecarul va primi un mesaj aferet. De asemena, id-urile exemplarelor trebuie sa fie unice, daca se inroduce un id de exemplar care deja exista(apartine altui exemplar), atunci se va afisa un mesaj aferent.
 
 
 ## Tabele baza de data
