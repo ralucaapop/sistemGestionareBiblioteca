@@ -45,6 +45,8 @@ Exista doua roluri in intermediu aplicatiei: cititor sau bibliotecar.
 ![diagrama usecase](documentatie-ghid-utlizare-raport/adauga_exemplar.PNG)
 ![diagrama usecase](documentatie-ghid-utlizare-raport/id_exemplar_invalid_add_ex.PNG)
 ![diagrama usecase](documentatie-ghid-utlizare-raport/id_carte_invalid_add_ex.PNG)
+![diagrama usecase](documentatie-ghid-utlizare-raport/adauga_exemplar_succes.PNG)
+
 
 
 
