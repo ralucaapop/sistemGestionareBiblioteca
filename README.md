@@ -14,7 +14,8 @@ Aceasta aplicatie vine in ajutorul persoanelor care doresc sa imprumute o anumit
 
 
 ## Functionalitati/Exemple utilizare
-Exista doua roluri in intermediu aplicatiei: cititor sau bibliotecar.  
+Exista doua roluri in intermediu aplicatiei: cititor sau bibliotecar. 
+![diagrama clase](documentatie-ghid-utlizare-raport/main.PNG)
 Un utilizator cu rol de cititor poate sa verifice daca o anumita carte este disponibila in biblioteca si sa faca o rezervare pentru aceasta. 
 * pentru a realiza o rezervare, acesta trebuie sa introduca titlul si autorul cartii pe care doreste sa o rezerve. Daca se gaseste cartea dorita, se va afisa o lista de carti din care trebuie sa aleaga id-ul cartii pe care o doreste. Daca cartea nu este disponibila, sau id-ul cartii este gresit(nu se regaseste in lista de carti afisata anterior) atunci cititorul va primi un mesaj de eroare cerandu-i-se acestuia sa aleaga un alt id.
 * de asemenea, un cititor poate sa anuleze o rezervare. Se va afisa o lista cu toate rezervarile pe care acesta le are,
