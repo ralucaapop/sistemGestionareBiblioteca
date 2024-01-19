@@ -1,4 +1,4 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/YmUJH1TE)
+![image](https://github.com/Programare-III-2023-2024/p3-proiect-sg1-ralucaapop/assets/115994992/02554bd6-3e30-49be-94ee-d4942991e9ff)[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/YmUJH1TE)
 # Titlu proiect: Rezervare si imprumut carti
 ### Pop Raluca Daniela
 
@@ -10,7 +10,6 @@ Aceasta aplicatie vine in ajutorul persoanelor care doresc sa imprumute o anumit
 ## Arhitectura
 
 ![diagrama clase](documentatie-ghid-utlizare-raport/diagramaClase.png)
-
 
 
 ## Functionalitati/Exemple utilizare
@@ -30,8 +29,8 @@ Exista doua roluri in intermediu aplicatiei: cititor sau bibliotecar.
 
 
 * De asemenea, un cititor poate sa anuleze o rezervare. Se va afisa o lista cu toate rezervarile pe care acesta le are, si va trebui sa aleaga id-ul exemplarului pentru care doreste sa anuleze rezervarea. Daca id-ul nu este corect, atunci va primi un mesaj de eroare
-  ![diagrama usecase](documentatie-ghid-utlizare-raport/anulare_rez.PNG)
-  ![diagrama usecase](documentatie-ghid-utlizare-raport/anulare_rez_succes.PNG)
+![diagrama usecase](documentatie-ghid-utlizare-raport/anulare_rez.PNG)
+![diagrama usecase](documentatie-ghid-utlizare-raport/anulare_rez_succes.PNG)
   
 
 * Un utilizator cu rol de bibliotecar poate realiza imprumuturi si retunari de carti pentru utilizatorii cu rol de cititor. Acesta poate adauga carti sau exemplare noi in baza de date, dar si sa creeze conturi noi de utilizator pentru cititori sau alti bibliotecari
@@ -46,6 +45,11 @@ Exista doua roluri in intermediu aplicatiei: cititor sau bibliotecar.
 ![diagrama usecase](documentatie-ghid-utlizare-raport/id_exemplar_invalid_add_ex.PNG)
 ![diagrama usecase](documentatie-ghid-utlizare-raport/id_carte_invalid_add_ex.PNG)
 ![diagrama usecase](documentatie-ghid-utlizare-raport/adauga_exemplar_succes.PNG)
+* Creaza un cont de utilizator pentru un cititor. Va trebui sa se introduca CNP-ul cititorului, numele cititorului, numarul de telefon si parola de la cont. Daca CNP-ul nu are lungimea coresounzatoare, sau este deja folosit(exista de un cont de cititor care foloseste acest cnp) se vor afisa mesaje aferente.
+![diagrama usecase](documentatie-ghid-utlizare-raport/adauga_cititor.PNG)
+![diagrama usecase](documentatie-ghid-utlizare-raport/cnp_lungime_incorecta.PNG)
+![diagrama usecase](documentatie-ghid-utlizare-raport/adauga_cititor_err.PNG)
+![diagrama usecase](documentatie-ghid-utlizare-raport/adauga_cititor_succes.PNG)
 
 
 
