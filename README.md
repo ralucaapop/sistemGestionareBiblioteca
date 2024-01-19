@@ -26,11 +26,13 @@ Exista doua roluri in intermediu aplicatiei: cititor sau bibliotecar.
 ![diagrama clase](documentatie-ghid-utlizare-raport/rezervac.PNG)
 ![diagrama clase](documentatie-ghid-utlizare-raport/alege_id_carte_rez.PNG)
 ![diagrama clase](documentatie-ghid-utlizare-raport/alege_id_carte_rez_err.PNG)
+![diagrama clase](documentatie-ghid-utlizare-raport/rezervac_succes.PNG)
 
-![diagrama clase](documentatie-ghid-utlizare-raport/rezervac.PNG)
 
+* De asemenea, un cititor poate sa anuleze o rezervare. Se va afisa o lista cu toate rezervarile pe care acesta le are, si va trebui sa aleaga id-ul exemplarului pentru care doreste sa anuleze rezervarea. Daca id-ul nu este corect, atunci va primi un mesaj de eroare
+  ![diagrama usecase](documentatie-ghid-utlizare-raport/anulare_rez.PNG)
+  ![diagrama usecase](documentatie-ghid-utlizare-raport/anulare_rez_succes.PNG)
 
-* de asemenea, un cititor poate sa anuleze o rezervare. Se va afisa o lista cu toate rezervarile pe care acesta le are,
 * Un utilizator cu rol de bibliotecar poate realiza imprumuturi si retunari de carti pentru utilizatorii cu rol de cititor. Acesta poate adauga carti sau exemplare noi in baza de date. 
 ![diagrama usecase](documentatie-ghid-utlizare-raport/Diagrama-use-case.png)
 
