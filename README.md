@@ -34,8 +34,10 @@ Exista doua roluri in intermediu aplicatiei: cititor sau bibliotecar.
   ![diagrama usecase](documentatie-ghid-utlizare-raport/anulare_rez_succes.PNG)
   
 
-* Un utilizator cu rol de bibliotecar poate realiza imprumuturi si retunari de carti pentru utilizatorii cu rol de cititor. Acesta poate adauga carti sau exemplare noi in baza de date. 
-![diagrama usecase](documentatie-ghid-utlizare-raport/Diagrama-use-case.png)
+* Un utilizator cu rol de bibliotecar poate realiza imprumuturi si retunari de carti pentru utilizatorii cu rol de cititor. Acesta poate adauga carti sau exemplare noi in baza de date, dar si sa creeze conturi noi de utilizator pentru cititori sau alti bibliotecari
+   ![diagrama usecase](documentatie-ghid-utlizare-raport/bibliotecar.PNG)
+* Dupa intrarea in cont, utilizatorul poate sa aleaga una dintre opiunile de mai jos:
+![diagrama usecase](documentatie-ghid-utlizare-raport/actiuni_bibliotecar.png)
 
 ## Tabele baza de data
 ![tabele](documentatie-ghid-utlizare-raport/Tabele.png)
