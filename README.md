@@ -1,4 +1,4 @@
-![image](https://github.com/Programare-III-2023-2024/p3-proiect-sg1-ralucaapop/assets/115994992/02554bd6-3e30-49be-94ee-d4942991e9ff)[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/YmUJH1TE)
+![image](https://github.com/Programare-III-2023-2024/p3-proiect-sg1-ralucaapop/assets/115994992/581ac23b-4498-4326-bf10-8485d5071d71)![image](https://github.com/Programare-III-2023-2024/p3-proiect-sg1-ralucaapop/assets/115994992/02554bd6-3e30-49be-94ee-d4942991e9ff)[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/YmUJH1TE)
 # Titlu proiect: Rezervare si imprumut carti
 ### Pop Raluca Daniela
 
@@ -13,7 +13,7 @@ Aceasta aplicatie vine in ajutorul persoanelor care doresc sa imprumute o anumit
 
 
 ## Functionalitati/Exemple utilizare
-Exista doua roluri in intermediu aplicatiei: cititor sau bibliotecar. 
+*Exista doua roluri in intermediu aplicatiei: cititor sau bibliotecar. 
 ![diagrama clase](documentatie-ghid-utlizare-raport/main.PNG)
 * Pentru autentificare in cont se verifica credentialele de login, daca acestea nu sunt corecte, atunci utilizatorul va primi un mesaj de eroare.
 ![diagrama clase](documentatie-ghid-utlizare-raport/loginCititor.PNG)
@@ -50,6 +50,14 @@ Exista doua roluri in intermediu aplicatiei: cititor sau bibliotecar.
 ![diagrama usecase](documentatie-ghid-utlizare-raport/cnp_lungime_incorecta.PNG)
 ![diagrama usecase](documentatie-ghid-utlizare-raport/adauga_cititor_err.PNG)
 ![diagrama usecase](documentatie-ghid-utlizare-raport/adauga_cititor_succes.PNG)
+
+* Realizeaza un imprumut -alegand aceasta optiune, un bibliotecar va putea realiza un imprumut pentru un cititor. Acesta va trebui sa specifice titlul si autorul cartii dorite. Apoi, se va afisa o lista de carti, bibliotecarul va trebui sa aleaga din lista id-ul cartii pe care doreste sa o imprumute pentru cititor, si cnp-ul cititorului. Daca id-ul cartii sau cnp-ul cititorului nu sunt valide, atunci se va afisa un mesaj de eroare.
+![diagrama usecase](documentatie-ghid-utlizare-raport/alege_id_carte_rez.PNG)  
+![diagrama usecase](documentatie-ghid-utlizare-raport/alege_id_carte_rez_err.PNG)
+![diagrama usecase](documentatie-ghid-utlizare-raport/eroare_id_carte_invalid_imp.PNG)
+![diagrama usecase](documentatie-ghid-utlizare-raport/eroare_cnp_invalid_imp.PNG)
+![diagrama usecase](documentatie-ghid-utlizare-raport/imprumut_succes.PNG)
+
 
 
 
