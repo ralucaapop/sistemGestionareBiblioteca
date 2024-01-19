@@ -38,6 +38,8 @@ Exista doua roluri in intermediu aplicatiei: cititor sau bibliotecar.
    ![diagrama usecase](documentatie-ghid-utlizare-raport/bibliotecar.PNG)
 * Dupa intrarea in cont, utilizatorul poate sa aleaga una dintre opiunile de mai jos:
 ![diagrama usecase](documentatie-ghid-utlizare-raport/actiuni_bibliotecar.png)
+* Adaugare carte noua- daca bibliotecarul alege aceasta optiune, atunci acesta va fi redirectionat catre o alta pagina unde va putea introduce informatii despre noua carte pe care doreste sa o adauge in biblioteca. Pentru aceasta, va trebui sa specifice id-ul cartii, titlu, autorul, genul cartii si numarul de zile pentru care un cititor poate imprumuta cartea. Id-ul cartii trebuie sa fie unic, daca exista deja o carte cu id-ul introdus, atunci se va primi un mesaj aferent.
+ 
 
 ## Tabele baza de data
 ![tabele](documentatie-ghid-utlizare-raport/Tabele.png)
