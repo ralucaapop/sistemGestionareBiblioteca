@@ -52,8 +52,8 @@ Aceasta aplicatie vine in ajutorul persoanelor care doresc sa imprumute o anumit
 ![diagrama usecase](documentatie-ghid-utlizare-raport/adauga_cititor_succes.PNG)
 
 * Realizeaza un imprumut -alegand aceasta optiune, un bibliotecar va putea realiza un imprumut pentru un cititor. Acesta va trebui sa specifice titlul si autorul cartii dorite. Apoi, se va afisa o lista de carti, bibliotecarul va trebui sa aleaga din lista id-ul cartii pe care doreste sa o imprumute pentru cititor, si cnp-ul cititorului. Daca id-ul cartii sau cnp-ul cititorului nu sunt valide, atunci se va afisa un mesaj de eroare.
-![diagrama usecase](documentatie-ghid-utlizare-raport/alege_id_carte_rez.PNG)  
-![diagrama usecase](documentatie-ghid-utlizare-raport/alege_id_carte_rez_err.PNG)
+![diagrama usecase](documentatie-ghid-utlizare-raport/alege_id_carte_imp.PNG)  
+![diagrama usecase](documentatie-ghid-utlizare-raport/alege_carte_pt_imp.PNG)
 ![diagrama usecase](documentatie-ghid-utlizare-raport/eroare_id_carte_invalid_imp.PNG)
 ![diagrama usecase](documentatie-ghid-utlizare-raport/eroare_cnp_invalid_imp.PNG)
 ![diagrama usecase](documentatie-ghid-utlizare-raport/imprumut_succes.PNG)
