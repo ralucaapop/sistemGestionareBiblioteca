@@ -18,6 +18,8 @@ Exista doua roluri in intermediu aplicatiei: cititor sau bibliotecar.
 ![diagrama clase](documentatie-ghid-utlizare-raport/main.PNG)
 * Pentru autentificare in cont se verifica credentialele de login, daca acestea nu sunt corecte, atunci utilizatorul va primi un mesaj de eroare.
 ![diagrama clase](documentatie-ghid-utlizare-raport/loginCititor.PNG)
+![diagrama clase](documentatie-ghid-utlizare-raport/eroare_auth.PNG)
+
 * Un utilizator cu rol de cititor poate sa verifice daca o anumita carte este disponibila in biblioteca si sa faca o rezervare pentru aceasta. 
 ![diagrama clase](documentatie-ghid-utlizare-raport/actiuni_cititor.PNG)
 * pentru a realiza o rezervare, acesta trebuie sa introduca titlul si autorul cartii pe care doreste sa o rezerve. Daca se gaseste cartea dorita, se va afisa o lista de carti din care trebuie sa aleaga id-ul cartii pe care o doreste. Daca cartea nu este disponibila, sau id-ul cartii este gresit(nu se regaseste in lista de carti afisata anterior) atunci cititorul va primi un mesaj de eroare cerandu-i-se acestuia sa aleaga un alt id.
