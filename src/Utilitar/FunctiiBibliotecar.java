@@ -1,4 +1,4 @@
-package ProiectP3Biblioteca;
+package Utilitar;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
+import ProiectP3Biblioteca.MainClasProiectP3Biblioteca;
 import ProiectP3Biblioteca.Exemplar.status;
 /**
  * Clasa care contine toate metodele corespunzatoare actiunilor aplicatie pentru un bibliotecar
@@ -596,5 +596,26 @@ public class FunctiiBibliotecar {
 	}	
 		return imprumuturi;
 
+	}
+	
+	/**
+	 * Aceasta metoda este folosita pentru schimbarea parolei pentru contul de utilizator al unui bibliotecar. Se cauta in tabela bibliotecari inregistrarea
+	 * care are pentru atributul "idAngajat" egal cu valoarea parametrenui functiei si sa face inlocuitest valoare atributului "parola" cu 
+	 * noua parola
+	 * @param parolaNoua - noua parola pentru cont
+	 * @param idAngajat - id-ul bibliotecarului
+	 */
+	public static void schimbaParolaBibliotecar(String parolaNoua, int idAngajat ){
+		Connection connection;
+		try {
+			connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
+			java.sql.Statement st= connection.createStatement();
+		
+			String SQL_UPDATE="UPDATE bibliotecari  SET parola ='"+parolaNoua+"' WHERE(idAngajat= '"+idAngajat+"')";
+		
+			st.executeUpdate(SQL_UPDATE);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();}
 	}
 }

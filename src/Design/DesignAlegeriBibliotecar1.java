@@ -1,4 +1,4 @@
-package ProiectP3Biblioteca;
+package Design;
 
 import java.awt.Color;
 import java.awt.Component;

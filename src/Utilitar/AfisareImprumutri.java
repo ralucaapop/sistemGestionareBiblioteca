@@ -1,12 +1,11 @@
-package ProiectP3Biblioteca;
+package Utilitar;
 
-public class AfisareRezervari {
-
+public class AfisareImprumutri {
 	private String titlu;
 	private String autor;
 	private int idE;
 	
-	public AfisareRezervari(int idE,String titlu, String autor) {
+	public AfisareImprumutri(int idE,String titlu, String autor) {
 		this.titlu=titlu;
 		this.autor=autor;
 		this.idE=idE;

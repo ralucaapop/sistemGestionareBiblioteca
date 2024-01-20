@@ -1,4 +1,4 @@
-package ProiectP3Biblioteca;
+package Design;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+
+import Utilitar.Functii;
 
 public class DesignAutentificareBibliotecar extends JFrame{
 	
@@ -98,8 +100,7 @@ public class DesignAutentificareBibliotecar extends JFrame{
 				}
 				else if(ac)
 				{
-					//Cititor cititor = new Cititor(cnpCititor, parolaCititor);
-					DesignOptiuniBibliotecar cit = new DesignOptiuniBibliotecar();
+					DesignOptiuniBibliotecar cit = new DesignOptiuniBibliotecar(idA);
 					setVisible(false);
 					cit.setVisible(true);
 				}

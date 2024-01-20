@@ -1,4 +1,4 @@
-package ProiectP3Biblioteca;
+package Design;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -16,11 +16,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import ProiectP3Biblioteca.Cititor;
+
 public class DesignOptiuniCititor extends JFrame{
 
 	JLabel etichetaTitlu;
 	 
 	JButton faRezervare;
+	JButton schimbaParola;
 	JButton anuleazaRezervare;
 	JButton exit;
 	
@@ -52,6 +55,8 @@ public class DesignOptiuniCititor extends JFrame{
 		
 		faRezervare = new JButton("REZERVA O CARTE");
 		anuleazaRezervare = new JButton("ANULEAZA O REZERVARE");
+		schimbaParola = new JButton("SCHIMBA PAROLA");
+
 		exit = new JButton("Exit");
 		faRezervare.setFocusPainted(false);
 		
@@ -59,17 +64,22 @@ public class DesignOptiuniCititor extends JFrame{
 		panelOptiuniCititor.add(etichetaTitlu);
 		panelOptiuniCititor.add(faRezervare);
 		panelOptiuniCititor.add(anuleazaRezervare);
+		panelOptiuniCititor.add(schimbaParola);
+
 		panelOptiuniCititor.add(exit);
 		
 		etichetaTitlu.setAlignmentX(Component.CENTER_ALIGNMENT);
 		faRezervare.setAlignmentX(Component.CENTER_ALIGNMENT);
 		anuleazaRezervare.setAlignmentX(Component.CENTER_ALIGNMENT);
+		schimbaParola.setAlignmentX(Component.CENTER_ALIGNMENT);
 		exit.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		faRezervare.setBackground(darkGreenColor);
 		faRezervare.setForeground(whiteColor);
 		anuleazaRezervare.setBackground(darkGreenColor);
 		anuleazaRezervare.setForeground(whiteColor);
+		schimbaParola.setBackground(darkGreenColor);
+		schimbaParola.setForeground(whiteColor);
 
 		exit.setBackground(darkGreenColor);
 		exit.setForeground(whiteColor);
@@ -99,11 +109,20 @@ public class DesignOptiuniCititor extends JFrame{
 				cit.setVisible(true);
 			}
 		};
+		ActionListener actSP = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DesignSchimbaParolaCititor cit = new DesignSchimbaParolaCititor(cititor);
+				setVisible(false);
+				cit.setVisible(true);
+			}
+		};
 		
 		exit.addActionListener(actE);
 		faRezervare.addActionListener(actR);
 		anuleazaRezervare.addActionListener(actAR);
-		
+		schimbaParola.addActionListener(actSP);
+
 		 setLayout(new GridBagLayout());
 
 	       
