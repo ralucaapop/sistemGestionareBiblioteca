@@ -1,4 +1,4 @@
-![image](https://github.com/Programare-III-2023-2024/p3-proiect-sg1-ralucaapop/assets/115994992/581ac23b-4498-4326-bf10-8485d5071d71)![image](https://github.com/Programare-III-2023-2024/p3-proiect-sg1-ralucaapop/assets/115994992/02554bd6-3e30-49be-94ee-d4942991e9ff)[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/YmUJH1TE)
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/YmUJH1TE)
 # Titlu proiect: Gestionare biblioteca
 ### Pop Raluca Daniela
 
