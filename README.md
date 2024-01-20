@@ -79,9 +79,9 @@ Aceasta aplicatie vine in ajutorul persoanelor care doresc sa imprumute o anumit
 <img src="documentatie-ghid-utlizare-raport/creaza_cont_biblio_id_incorect.PNG" width="350" height="230">
 <img src="documentatie-ghid-utlizare-raport/creaza_cont_biblio_succes.PNG" width="350" height="230">
 
-<img src="documentatie-ghid-utlizare-raport/Diagrama-use-case.png" width="350" height="230">
+![diagrama clase](documentatie-ghid-utlizare-raport/Diagrama-use-case.png)
 ## Tabele baza de data
-<img src="documentatie-ghid-utlizare-raport/Tabele.png" width="350" height="230">
+![diagrama clase](documentatie-ghid-utlizare-raport/Tabele.png)
 ### Resurse
 Markdown Guide, [Online] Available: https://www.markdownguide.org/basic-syntax/ [accesed: Mar 14, 1706]
 # proiectP3
