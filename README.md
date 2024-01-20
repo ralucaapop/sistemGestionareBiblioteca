@@ -15,7 +15,7 @@ Aceasta aplicatie vine in ajutorul persoanelor care doresc sa imprumute o anumit
 
 ## Functionalitati/Exemple utilizare
 * Exista doua roluri in intermediu aplicatiei: cititor sau bibliotecar.
-  <img src="documentatie-ghid-utlizare-raport/main.PNG" width="350" height="250">
+<img src="documentatie-ghid-utlizare-raport/main.PNG" width="350" height="250">
 
 * Pentru autentificare in cont se verifica credentialele de login, daca acestea nu sunt corecte, atunci utilizatorul va primi un mesaj de eroare.
 <img src="documentatie-ghid-utlizare-raport/loginCititor.PNG" width="350" height="250">
