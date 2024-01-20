@@ -1,4 +1,4 @@
-package ProiectP3Biblioteca;
+package Utilitar;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import ProiectP3Biblioteca.Carte;
+import ProiectP3Biblioteca.Cititor;
+import ProiectP3Biblioteca.MainClasProiectP3Biblioteca;
 import ProiectP3Biblioteca.Exemplar.status;
 
 /**
@@ -537,5 +540,24 @@ public class Functii {
 	}
 	
 	
-	
+	/**
+	 * Aceasta metoda este folosita pentru schimbarea parolei pentru contul de utilizator al unui cititor. Se cauta in tabela cititori inregistrarea
+	 * care are pentru atributul "cnp" egal cu valoarea parametrenui functiei si sa face inlocuitest valoare atributului "parola" cu 
+	 * noua parola
+	 * @param parolaNoua - noua parola pentru cont
+	 * @param cnp - cnp-ul cititorului
+	 */
+	public static void schimbaParolaCititor(String parolaNoua, String cnp ){
+		Connection connection;
+		try {
+			connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
+			java.sql.Statement st= connection.createStatement();
+		
+			String SQL_UPDATE="UPDATE cititori  SET parola ='"+parolaNoua+"' WHERE(cnp= '"+cnp+"')";
+		
+			st.executeUpdate(SQL_UPDATE);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();}
+	}
 }

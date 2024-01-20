@@ -1,5 +1,7 @@
 package ProiectP3Biblioteca;
 
+import Design.DesignMain;
+import Utilitar.CreareTabele;
 
 public class MainClasProiectP3Biblioteca {
 	public static final String DRIVER = "com.mysql.cj.jdbc.Driver";

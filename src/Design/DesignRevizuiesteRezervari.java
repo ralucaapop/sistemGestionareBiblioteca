@@ -1,4 +1,4 @@
-package ProiectP3Biblioteca;
+package Design;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -14,6 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import Utilitar.FunctiiBibliotecar;
 
 public class DesignRevizuiesteRezervari extends JFrame {
 

@@ -1,4 +1,4 @@
-package ProiectP3Biblioteca;
+package Design;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import Utilitar.FunctiiBibliotecar;
 
 public class DesignRealizeazaRetur extends JFrame {
 	

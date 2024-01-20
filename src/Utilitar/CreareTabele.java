@@ -1,4 +1,4 @@
-package ProiectP3Biblioteca;
+package Utilitar;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.mysql.cj.jdbc.DatabaseMetaData;
+
+import ProiectP3Biblioteca.MainClasProiectP3Biblioteca;
 
 
 public class CreareTabele {

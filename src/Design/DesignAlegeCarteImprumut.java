@@ -1,4 +1,4 @@
-package ProiectP3Biblioteca;
+package Design;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -20,6 +20,10 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import ProiectP3Biblioteca.Carte;
+import Utilitar.Functii;
+import Utilitar.FunctiiBibliotecar;
 
 public class DesignAlegeCarteImprumut extends JFrame{
 
