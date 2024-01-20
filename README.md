@@ -83,6 +83,7 @@ Aceasta aplicatie vine in ajutorul persoanelor care doresc sa imprumute o anumit
 ![diagrama clase](documentatie-ghid-utlizare-raport/Diagrama-use-case.png)
 ## Tabele baza de data
 ![diagrama clase](documentatie-ghid-utlizare-raport/Tabele.png)
+Baza de date este compusa din sase tabele. Tabela "cititori" retine informatii despre persoanele cu rol de cititor care si-au creeat un cont in aplicatie, atributul "cnp" este cheia primara. Tabela "bibliotecari" retine informatii despre bibliotecarii angajati (atributul "idAngajat" este cheia primara. Tabela "carti" retine informatii despre cartile care se afla in biblioteca, numarul de exemplare disponibile, rezervate si imprumutate pentru fiecare carte, cheia primara este "idCarte". Tabela "exemplare" retine informatii despre fiecare exemplar din biblioteca, se retine id-ul exemplarului, id-ul cartii si statusul exemplarului: "REZERVATA, IMPRUMUTATA SAU DISPONIBILA". In aceasta tabela, atributul "idCarte" reprezinta un foreign key intrucat valoarea acestuia reprezinta cheia primara din tabela "carti". Tabela"rezervari" contine inregistrari cu toate rezervarile existente, cheia primara este compusa din atributele cnpCititor si idExemplar, care de asemena sunt chei straine. Tabela "imprumuturi" contine inregistrari cu toate imprumuturile existente, cheia primara este compusa din atributele cnpCititor si idExemplar, care de asemena sunt chei straine.
 ### Resurse
 Markdown Guide, [Online] Available: https://www.markdownguide.org/basic-syntax/ [accesed: Mar 14, 1706]
 # proiectP3
