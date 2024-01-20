@@ -35,16 +35,20 @@ Aceasta aplicatie vine in ajutorul persoanelor care doresc sa imprumute o anumit
 
 * Un utilizator cu rol de bibliotecar poate realiza imprumuturi si retunari de carti pentru utilizatorii cu rol de cititor. Acesta poate adauga carti sau exemplare noi in baza de date, dar si sa creeze conturi noi de utilizator pentru cititori sau alti bibliotecari
 ![diagrama usecase](documentatie-ghid-utlizare-raport/bibliotecar.PNG)
+
 * Dupa intrarea in cont, utilizatorul poate sa aleaga una dintre opiunile de mai jos:
 ![diagrama usecase](documentatie-ghid-utlizare-raport/actiuni_bibliotecar.PNG)
+
 * Adaugare carte noua- daca bibliotecarul alege aceasta optiune, atunci acesta va fi redirectionat catre o alta pagina unde va putea introduce informatii despre noua carte pe care doreste sa o adauge in biblioteca. Pentru aceasta, va trebui sa specifice id-ul cartii, titlu, autorul, genul cartii si numarul de zile pentru care un cititor poate imprumuta cartea. Id-ul cartii trebuie sa fie unic, daca exista deja o carte cu id-ul introdus, atunci se va primi un mesaj aferent.
 ![diagrama usecase](documentatie-ghid-utlizare-raport/adauga_carte.PNG)
 ![diagrama usecase](documentatie-ghid-utlizare-raport/adauga_carte_err.PNG)
+
 * Adauga un exemplar in biblioteca- pentru a adauga un nou exemplar in biblioteca, bibliotecarul trebuie sa specifice id-ul cartii aferente. Daca id-ul este gresit(daca nu exista nici o carte cu id-ul specificat), bibliotecarul va primi un mesaj aferet. De asemena, id-urile exemplarelor trebuie sa fie unice, daca se inroduce un id de exemplar care deja exista(apartine altui exemplar), atunci se va afisa un mesaj aferent.
 ![diagrama usecase](documentatie-ghid-utlizare-raport/adauga_exemplar.PNG)
 ![diagrama usecase](documentatie-ghid-utlizare-raport/id_exemplar_invalid_add_ex.PNG)
 ![diagrama usecase](documentatie-ghid-utlizare-raport/id_carte_invalid_add_ex.PNG)
 ![diagrama usecase](documentatie-ghid-utlizare-raport/adauga_exemplar_succes.PNG)
+
 * Creaza un cont de utilizator pentru un cititor. Va trebui sa se introduca CNP-ul cititorului, numele cititorului, numarul de telefon si parola de la cont. Daca CNP-ul nu are lungimea coresounzatoare, sau este deja folosit(exista de un cont de cititor care foloseste acest cnp) se vor afisa mesaje aferente.
 ![diagrama usecase](documentatie-ghid-utlizare-raport/adauga_cititor.PNG)
 ![diagrama usecase](documentatie-ghid-utlizare-raport/cnp_lungime_incorecta.PNG)
@@ -58,6 +62,12 @@ Aceasta aplicatie vine in ajutorul persoanelor care doresc sa imprumute o anumit
 ![diagrama usecase](documentatie-ghid-utlizare-raport/imprumut_succes.PNG)
 
 * Realizeaza un retur - alegand aceasta optiune, un bibliotecar poate sa realizeze un retur pentru o carte imprumutata de catre un cititor. Acesta trebuie sa introduca cnp-ul cititorului, daca cnp-ul este incorect(nu exista nu cont asociat acelui cnp), atunci va primi un mesaj de eroare. Se va genere o lista cu toate exemplarele imprumutate de catre cititorul respeciv, iar apoi va trebui sa se aleaga id-ul exemplarului pe are doreset sa il returneze. Daca id-ul este incorect(nu se regaseste in lista de exemplare) atunci se va afisa un mesaj specific.
+
+![diagrama usecase](documentatie-ghid-utlizare-raport/retur_scrie_cnp.PNG)
+![diagrama usecase](documentatie-ghid-utlizare-raport/retur_alege_id.PNG)
+![diagrama usecase](documentatie-ghid-utlizare-raport/retur_eroare_id.PNG)
+![diagrama usecase](documentatie-ghid-utlizare-raport/retur_succes.PNG)
+
 
 * Revizuieste rezervarile - alegand aceasta optiune, se vor revizui automat toate rezervarile de carti facute de catre cititori. Daca o rezervare este mai veche de doua zile, atunci aceasta va fi stearsa din lista de rezervari.
 ![diagrama usecase](documentatie-ghid-utlizare-raport/revizuieste_rezervari.PNG)
