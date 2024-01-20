@@ -63,7 +63,7 @@ Aceasta aplicatie vine in ajutorul persoanelor care doresc sa imprumute o anumit
 
 * Realizeaza un retur - alegand aceasta optiune, un bibliotecar poate sa realizeze un retur pentru o carte imprumutata de catre un cititor. Acesta trebuie sa introduca cnp-ul cititorului, daca cnp-ul este incorect(nu exista nu cont asociat acelui cnp), atunci va primi un mesaj de eroare. Se va genere o lista cu toate exemplarele imprumutate de catre cititorul respeciv, iar apoi va trebui sa se aleaga id-ul exemplarului pe are doreset sa il returneze. Daca id-ul este incorect(nu se regaseste in lista de exemplare) atunci se va afisa un mesaj specific.
 
-![diagrama usecase](documentatie-ghid-utlizare-raport/retur_scrie_cnp.PNG)
+![diagrama usecase](documentatie-ghid-utlizare-raport/retur_scriere_cnp.PNG)
 ![diagrama usecase](documentatie-ghid-utlizare-raport/retur_alege_id.PNG)
 ![diagrama usecase](documentatie-ghid-utlizare-raport/retur_eroare_id.PNG)
 ![diagrama usecase](documentatie-ghid-utlizare-raport/retur_succes.PNG)
