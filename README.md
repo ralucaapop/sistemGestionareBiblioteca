@@ -57,7 +57,7 @@ Aceasta aplicatie vine in ajutorul persoanelor care doresc sa imprumute o anumit
 ![diagrama usecase](documentatie-ghid-utlizare-raport/eroare_cnp_invalid_imp.PNG)
 ![diagrama usecase](documentatie-ghid-utlizare-raport/imprumut_succes.PNG)
 
-
+* Realizeaza un retur -
 
 
 
