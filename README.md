@@ -13,7 +13,7 @@ Aceasta aplicatie vine in ajutorul persoanelor care doresc sa imprumute o anumit
 
 
 ## Functionalitati/Exemple utilizare
-*Exista doua roluri in intermediu aplicatiei: cititor sau bibliotecar. 
+* Exista doua roluri in intermediu aplicatiei: cititor sau bibliotecar. 
 ![diagrama clase](documentatie-ghid-utlizare-raport/main.PNG)
 * Pentru autentificare in cont se verifica credentialele de login, daca acestea nu sunt corecte, atunci utilizatorul va primi un mesaj de eroare.
 ![diagrama clase](documentatie-ghid-utlizare-raport/loginCititor.PNG)
