@@ -26,6 +26,7 @@ public class DesignOptiuniBibliotecar extends JFrame {
 	JButton realizeazaImprumut;
 	JButton realizeazaRetur;
 	JButton revizuitesteRezervari;
+	JButton inregistrare;
 	JButton exit;
 	
 	public DesignOptiuniBibliotecar() {
@@ -38,13 +39,14 @@ public class DesignOptiuniBibliotecar extends JFrame {
 	this.setLayout(new FlowLayout(FlowLayout.LEFT));
 	
 	etichetaTitlu=new JLabel("ACTIUNI POSIBILE");
-	
+	inregistrare= new JButton("CREEAZA UN CONT NOU PENTRU BIBLIOTECAR");
 	adaugaCarte = new JButton("ADAUGA O CARTE NOUA IN BIBLIOTECA");
 	adaugaExemplar = new JButton("ADAUGA UN NOU EXEMPLAR IN BIBLIOTECA");
 	adaugaCititor = new JButton("INREGISTREAZA UN NOU CITITOR");
 	realizeazaImprumut = new JButton("REALIZEAZA UN IMPRUMUT");
 	realizeazaRetur = new JButton("REALIZEAZA UN RETUR");
 	revizuitesteRezervari = new JButton("REVIZUIESTE REZERVARILE");
+	
 	exit = new JButton("Exit");
 	
 	etichetaTitlu.setAlignmentX(Component.CENTER_ALIGNMENT);	
@@ -71,8 +73,11 @@ public class DesignOptiuniBibliotecar extends JFrame {
     realizeazaImprumut.setAlignmentX(Component.CENTER_ALIGNMENT);
     realizeazaRetur.setAlignmentX(Component.CENTER_ALIGNMENT);
     revizuitesteRezervari.setAlignmentX(Component.CENTER_ALIGNMENT);
+	inregistrare.setAlignmentX(Component.CENTER_ALIGNMENT);
     exit.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+    inregistrare.setBackground(darkGreenColor);
+	inregistrare.setForeground(whiteColor);
     adaugaCarte.setBackground(darkGreenColor);
     adaugaCarte.setForeground(whiteColor);
     adaugaExemplar.setBackground(darkGreenColor);
@@ -97,9 +102,15 @@ public class DesignOptiuniBibliotecar extends JFrame {
 	panelOptiuniCititor.add(realizeazaImprumut);
 	panelOptiuniCititor.add(realizeazaRetur);
 	panelOptiuniCititor.add(revizuitesteRezervari);
+	panelOptiuniCititor.add(inregistrare);
 	panelOptiuniCititor.add(exit);
-	
-	
+
+	ActionListener actI = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			DesignCreareContBibliotecar d= new DesignCreareContBibliotecar();
+		}
+	};	
 	ActionListener actAddEx = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -171,7 +182,7 @@ public class DesignOptiuniBibliotecar extends JFrame {
      gbc.fill = GridBagConstraints.CENTER;
      add(panelOptiuniCititor, gbc);
 
-	
+ 	inregistrare.addActionListener(actI);
 	exit.addActionListener(actE);
 	adaugaCarte.addActionListener(actAddCart);
 	adaugaCititor.addActionListener(actAddCit);

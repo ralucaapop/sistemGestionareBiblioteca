@@ -22,7 +22,6 @@ public class DesignAlegeriBibliotecar1 extends JFrame{
 	JLabel etichetaTitlu;
 	
 	JButton autentificare;
-	JButton inregistrare;
 	JButton exit;
 	
 	public DesignAlegeriBibliotecar1() {
@@ -56,13 +55,11 @@ public class DesignAlegeriBibliotecar1 extends JFrame{
 
 	    
 		autentificare = new JButton("INTRA IN CONT");
-		inregistrare= new JButton("CREEAZA UN CONT NOU");
 		exit = new JButton("Exit");
 		
 		autentificare.setBackground(darkGreenColor);
 		autentificare.setForeground(whiteColor);
-		inregistrare.setBackground(darkGreenColor);
-		inregistrare.setForeground(whiteColor);
+		
 		exit.setBackground(darkGreenColor);
 		exit.setForeground(whiteColor);
 		
@@ -71,12 +68,11 @@ public class DesignAlegeriBibliotecar1 extends JFrame{
 		
 		etichetaTitlu.setAlignmentX(Component.CENTER_ALIGNMENT);
 		autentificare.setAlignmentX(Component.CENTER_ALIGNMENT);
-		inregistrare.setAlignmentX(Component.CENTER_ALIGNMENT);
 		exit.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		panelAlegereBibliotecar.add(etichetaTitlu);
 		panelAlegereBibliotecar.add(autentificare);
-		panelAlegereBibliotecar.add(inregistrare);
+		
 		panelAlegereBibliotecar.add(exit);
 		
 		
@@ -89,12 +85,7 @@ public class DesignAlegeriBibliotecar1 extends JFrame{
 			}
 		};
 		
-		ActionListener actI = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				DesignCreareContBibliotecar d= new DesignCreareContBibliotecar();
-			}
-		};
+		
 		
 		ActionListener actE = new ActionListener() {
 			@Override
@@ -104,7 +95,6 @@ public class DesignAlegeriBibliotecar1 extends JFrame{
 		};
 		
 		autentificare.addActionListener(actA);
-		inregistrare.addActionListener(actI);
 		exit.addActionListener(actE);
 		setLayout(new GridBagLayout());
 
