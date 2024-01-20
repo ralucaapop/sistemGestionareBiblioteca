@@ -57,8 +57,16 @@ Aceasta aplicatie vine in ajutorul persoanelor care doresc sa imprumute o anumit
 ![diagrama usecase](documentatie-ghid-utlizare-raport/eroare_cnp_invalid_imp.PNG)
 ![diagrama usecase](documentatie-ghid-utlizare-raport/imprumut_succes.PNG)
 
-* Realizeaza un retur -
+* Realizeaza un retur - alegand aceasta optiune, un bibliotecar poate sa realizeze un retur pentru o carte imprumutata de catre un cititor. Acesta trebuie sa introduca cnp-ul cititorului, daca cnp-ul este incorect(nu exista nu cont asociat acelui cnp), atunci va primi un mesaj de eroare. Se va genere o lista cu toate exemplarele imprumutate de catre cititorul respeciv, iar apoi va trebui sa se aleaga id-ul exemplarului pe are doreset sa il returneze. Daca id-ul este incorect(nu se regaseste in lista de exemplare) atunci se va afisa un mesaj specific.
 
+* Revizuieste rezervarile - alegand aceasta optiune, se vor revizui automat toate rezervarile de carti facute de catre cititori. Daca o rezervare este mai veche de doua zile, atunci aceasta va fi stearsa din lista de rezervari.
+![diagrama usecase](documentatie-ghid-utlizare-raport/revizuieste_rezervari.PNG)
+![diagrama usecase](documentatie-ghid-utlizare-raport/revizuieste_revervari_succes.PNG)
+
+* Creaza cont de bibliotecar - alegand aceasta optiune, un bibliotecar poate sa creeze un cont de bibliotecar pentru un nou angajat. Acesta trebuie sa introduca id-ul de angajat al noului bibliotecar, numele acestuia, adresa de e-mail, numarul de telefon si o parola pentru contul acestuia. Cum id-urile sunt unice, daca acesta incearca sa introduca un id care deja exista va primi un mesaj de eroare.
+![diagrama usecase](documentatie-ghid-utlizare-raport/creaza_cont_biblio.PNG)
+![diagrama usecase](documentatie-ghid-utlizare-raport/creaza_cont_biblio_id_incorect.PNG)
+![diagrama usecase](documentatie-ghid-utlizare-raport/creaza_cont_biblio_succes.PNG)
 
 
 ## Tabele baza de data
