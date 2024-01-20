@@ -9,7 +9,7 @@ Pentru un utilizator cu rolul de bliotecar, aplicatia are rol administrativ ofer
 Aceasta aplicatie vine in ajutorul persoanelor care doresc sa imprumute o anumita carte de la biblioteca, insa inainte de a merge fizic si a imprumuta cartea, acestia pot sa verifice daca exista un exemplar disponibil si sa faca o rezervare pentru acesta.
 ## Arhitectura
 
-![diagrama clase](documentatie-ghid-utlizare-raport/diagramaClase.png)
+![diagrama clase](documentatie-ghid-utlizare-raport/diagramaClase.png =100x20)
 
 
 ## Functionalitati/Exemple utilizare
