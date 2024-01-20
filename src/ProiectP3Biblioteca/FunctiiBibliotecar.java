@@ -14,17 +14,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.mysql.cj.xdevapi.Statement;
 
 import ProiectP3Biblioteca.Exemplar.status;
 /**
  * Clasa care contine toate metodele corespunzatoare actiunilor aplicatie pentru un bibliotecar
  */
 public class FunctiiBibliotecar {
+
 	/**
-	 * Metoda pentru adaugarea uneoi noi carti in binlioteca
+	 * Metoda pentru verificarea existentei id-ului unei carti in baza de date, mai exact in tabela "carti".
+	 * Pentru verificare se face o interogare asupra bazei de date si se cauta o inregistrare care are id-ul egal cu paramentru functiei
+	 * Daca se gaseste, atunci inseamna ca exista deja in baza de date o carte cu id-ul dorit, deci nu putem insera inca o carte cu acest id
+	 * @param id - id-ul cartii pe care dorim sa il verificam 
+	 * @return returneaza true daca nu s-a gasit o inregistrare cu id-ul specifica, false in caz contrar
 	 */
-	
 	public static boolean verificaIdCarte(int id) {
 		
 		boolean IDValid=true;
@@ -52,6 +55,15 @@ public class FunctiiBibliotecar {
 		return IDValid;
 	}
 	
+	/**
+	 * Aceasta metoda este folosita pentru adaugarea unei noi carti in biblioteca.
+	 * Se adauga o noua inregistrare in baza de date in tabelul "carti" cu informatiile din parametrii functiei 
+	 * @param id - id-ul cartii 
+	 * @param titlu - titlul cartii
+	 * @param autor - autorul cartii
+	 * @param gen - gen cartii
+	 * @param nrZile - numarul de zile pe pentru care poate fi imprumutata o carte
+	 */
 	public static void adaugaCarteNoua(int id, String titlu, String autor, String gen, int nrZile) {
 		try {
 			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
@@ -79,84 +91,13 @@ public class FunctiiBibliotecar {
 			}
 	}
 	
-	//nefolosita
-	public static void adaugaCarteNoua() {
-		
-		boolean IDValid=true;
-		int id=0;
-		boolean ok=false;	
-		
-		try {
-			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
-			java.sql.Statement st = connection.createStatement();
 
-			try {
-				Scanner sc = new Scanner(System.in);
-
-				while(IDValid)
-				{
-					System.out.print("ID-ul Cartii:");
-					id=Integer.parseInt(sc.next());
-						
-						String SQL_SELECT = "select * from carti where idCarte='"+id+"'";
-						ResultSet resultSet = st.executeQuery(SQL_SELECT);
-						while(resultSet.next())
-							IDValid=false;
-					
-						if(IDValid==false)
-						{	
-							System.out.println("Acest ID apartine altei carti. INCEARCA IAR\n");
-							IDValid=true;
-						}
-						else if(IDValid==true)
-						{
-						System.out.println("ID valid, continuati\n");
-							ok=true;
-							break;
-
-						}
-				}
-				if(ok==true)
-				{
-					System.out.print("Titlul Cartii:");
-					String titlu = sc.next();
-					System.out.print("Genul cartii");
-					String gen = sc.next();
-					System.out.print("Autorul cartii");
-					String autor = sc.next();
-					System.out.print("Numarul de zile de imprumut al cartii");
-					int nrZileImprumut = Integer.parseInt(sc.next());
-					
-					
-					String SQL_INSERT = "INSERT INTO carti VALUES(?,?,?,?,0,0,0,?)"; 
-					
-					try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_INSERT)) {
-					    preparedStatement.setInt(1, id);
-					    preparedStatement.setString(2, titlu);
-					    preparedStatement.setString(3, gen);
-					    preparedStatement.setString(4, autor);
-					    preparedStatement.setInt(5, nrZileImprumut);
-
-					    int affectedRows = preparedStatement.executeUpdate();
-					    if(affectedRows>0)
-					    	System.out.println("Carte inregistrata cu succes.");	
-					} catch (SQLException e) {
-					    e.printStackTrace();
-					}
-					
-				}
-			}catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-			
-	}
-	
+	/**
+	 * Aceasta metoda este folosita pentru a verifica daca id-ul unei carti este corect(se gaseste in baza de bate).
+	 * Se realizeaza o interogare asuprea bazei de date, daca se gaseste o inregistrare care are atributul idCarte egal cu valoarea peramentrului, atunci is-ul este corec
+	 * @param idCarte - id-ul pe care dorim sa il verificam
+	 * @return - true, daca id-ul sa gasit in baza de date, false in caz contrar
+	 */
 	public static boolean verificaIdCartePtExemplar(int idCarte) {
 		boolean idCarteValid=false;
 		try {
@@ -178,6 +119,14 @@ public class FunctiiBibliotecar {
 		return idCarteValid;
 	}
 	
+	
+	/**
+	 * Aceasta metoda este folosita pentru a verifica daca id-ul unui exemplar este corect(se gaseste in baza de bate).
+	 * Se realizeaza o interogare asuprea bazei de date(tabela exemplare), daca se gaseste o inregistrare care are atributul idExemplar egal cu valoarea peramentrului,
+	 * atunci id-ul este corect
+	 * @param idCarte - id-ul pe care dorim sa il verificam
+	 * @return - true, daca id-ul sa gasit in baza de date, false in caz contrar
+	 */
 	public static boolean verificaIdExemplar(int id) {
 		boolean IDValid=true;
 		
@@ -202,6 +151,12 @@ public class FunctiiBibliotecar {
 		return IDValid;
 	}
 	
+	/**
+	 * Aceasta metoda este folosita pentru adaugarea unui nou exemplar in baza de date. Se adauga in baza de date, in tabela exemplare,
+	 * o noua inregistrare care sa contina datele valorilor din parametrii 
+	 * @param idE - id-ul Exemplarului
+	 * @param idC - id-ul Cartii
+	 */
 	public static void adaugaExemplarNou(int idE, int idC) {
 		try {
 			
@@ -232,117 +187,18 @@ public class FunctiiBibliotecar {
 			} catch (SQLException e) {
 			    e.printStackTrace();
 			}
-}catch (SQLException e) {
-	// TODO Auto-generated catch block
-	e.printStackTrace();
-}
-
-	}
-	
-	//nefolosita
-	
-	/**
-	 * Metoda pentru adaugarea unui nou exemplar in biblioteca
-	 */
-	public static void adaugaExemplarNou() {
-	
-		
-		System.out.println("Introduceti datele pentru a inregistra un nou exemplar");
-		boolean IDValid=true;
-		int id=0;
-		boolean ok=false;	
-		
-		try {
-			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
-			java.sql.Statement st = connection.createStatement();
-
-			try {
-				Scanner sc = new Scanner(System.in);
-
-				while(IDValid)
-				{
-					System.out.print("ID-ul Exemplarului:");
-					id=Integer.parseInt(sc.next());
-						
-						String SQL_SELECT = "select * from exemplare where idExemplar='"+id+"'";
-						ResultSet resultSet = st.executeQuery(SQL_SELECT);
-						while(resultSet.next())
-							IDValid=false;
-					
-						if(IDValid==false)
-						{	
-							System.out.println("Acest ID apartine altui exemplar. INCEARCA IAR\n");
-							IDValid=true;
-						}
-						else if(IDValid==true)
-						{
-						System.out.println("ID valid, continuati\n");
-							ok=true;
-							break;
-
-						}
-				}
-				int idCarte=0;
-				boolean idCarteValid=false;
-				
-				if(ok==true) 
-				{
-					while(!idCarteValid) 
-					{
-						System.out.println("Introduceti ID-ul cartii pentru care adaugati un nou exemplar");
-						idCarte=Integer.parseInt(sc.next());
-						String SQL_SELECT1 = "select * from carti where idCarte='"+idCarte+"'";
-						ResultSet resultSet1 = st.executeQuery(SQL_SELECT1);
-						while(resultSet1.next())
-						{
-							idCarteValid=true;
-							break;
-						}
-						if(idCarteValid==false)
-							System.out.println("Acest ID nu corespunde nici unei carti, INCERCATI IAR!");
-					}
-					if(idCarteValid==true) {
-						
-						String SQL_SELECT="Select * from exemplare where idCarte = '"+idCarte+"'";
-						ResultSet resultSet = st.executeQuery(SQL_SELECT);
-						int nred=0;
-						while(resultSet.next())
-						{
-							nred=resultSet.getInt("nrcd");
-						}
-						
-						nred++;
-						
-						String SQL_UPDATE="UPDATE carti SET nrcd ='"+nred+"' WHERE (idCarte = '"+idCarte+"')";
-						st.executeUpdate(SQL_UPDATE);
-									
-						String SQL_INSERT = "INSERT INTO exemplare VALUES(?,?,?)"; 
-						
-
-						try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_INSERT)) {
-						    preparedStatement.setInt(1, id);
-						    preparedStatement.setInt(2, idCarte);
-						    preparedStatement.setString(3, "DISPONIBILA");
-						    int affectedRows = preparedStatement.executeUpdate();
-						    if(affectedRows>0)
-						    	System.out.println("Exemplar adaugat cu succes.");	
-						} catch (SQLException e) {
-						    e.printStackTrace();
-						}
-					}
-				}
-			}catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		catch (SQLException e) {
+		}catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 	
+	/**
+	 * Aceasta metoda este folosita pentru verificarea lungimii cnp-ului, daca acesta este diferit de 13, atunci cenp-ul nu este valid
+	 * @param cnp - valoarea atributului care trebuie verificat
+	 * @return - returneaza true daca lungimea este corect, false in caz contrar 
+	 */
 	public static boolean verLungimeCnp(String cnp) {
 		boolean CNPValid=true;
 		if(cnp.length()!=13)
@@ -350,6 +206,14 @@ public class FunctiiBibliotecar {
 		return CNPValid;
 	}
 	
+	/**
+	 * Aceasta metoda verifica daca cnp-ul pe care doreste utilizatorul sa il foloseasca pentru creearea unui nou cont este corect sau nu.
+	 * Se cauta in baza de date(tabela cititori) daca exista o inregistrare pentru care atributul "cnp" sa fie egal cu valoarea parametrului, 
+	 * in caz afirmativ, cnp-ul trimis pentru validare va fi respins, intucat oentru creearea unui cont cnp-ul trebuie sa fie unic
+	 * (sa nu existe 2 inregistrari cu acelasi cnp) 
+	 * @param cnp - valoarea cnp-ului trimisa spre validare
+	 * @return- true, daca cnp-ul nu a fost gasit in baza de date, false in caz contrar
+	 */
 	public static boolean cnpValidPtInregistrare(String cnp)
 	{
 		boolean CNPValid=true;
@@ -376,6 +240,14 @@ public class FunctiiBibliotecar {
 		return CNPValid;
 	}
 	
+	/**
+	 * Aceasta metoda este folosita pentru creearea unui nou cont de cititor. Se adauga in baza de date, in tabela cititori,
+	 * o noua inregistrare care sa contina datele valorilor din parametrii 
+	 * @param cnp - cn-ul cititorului
+	 * @param nume - numele cititorului
+	 * @param nrTel - numarul de telefon
+	 * @param parola - parola asociata contului
+	 */
 	public static void adaugaCititorNou(String cnp,String nume, String nrTel, String parola ) {
 		try {
 			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
@@ -402,97 +274,15 @@ public class FunctiiBibliotecar {
 
 	}
 	
+
 	/**
-	 * Metoda pentru creearea unui noi cont de cititor
-	 */
-	public static void adaugaCititorNou() 
-	{
-		
-		System.out.println("Inregistreaza un cititor nou");
-		boolean CNPValid=true;
-		String cnp="0000000000";
-		
-		boolean ok=false;	
-		
-		try {
-				Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
-				java.sql.Statement st = connection.createStatement();
-
-				try {
-					Scanner sc = new Scanner(System.in);
-
-					while(CNPValid)
-					{
-						System.out.print("CNP-ul Cititorului:");
-						cnp=sc.next();
-						if(cnp.length()==13)
-							
-						{
-							String SQL_SELECT = "select * from cititori where CNP='"+cnp+"'";
-							ResultSet resultSet = st.executeQuery(SQL_SELECT);
-							while(resultSet.next())
-								CNPValid=false;
-						
-							if(CNPValid==false)
-							{	
-								System.out.println("Acest CNP este deja folosit. INCEARCA IAR\n");
-								CNPValid=true;
-							}
-							else if(CNPValid==true)
-							{
-							System.out.println("CNP valid, continuati\n");
-								ok=true;
-								break;
-	
-							}
-						}
-						else System.out.println("CNP-ul nu are lungimea corespunzatoare. Incercati iar");
-					}
-					if(ok==true)
-					{
-						System.out.println("NUMELE:");
-						String nume=sc.next();
-						System.out.println("NR Telefon:");
-						String nrTel=sc.next();
-						System.out.println("Parola:");
-						String parola=sc.next();
-						
-						String SQL_INSERT = "INSERT INTO cititori VALUES(?,?,?,?)"; 
-						
-						try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_INSERT)) {
-						    preparedStatement.setString(1, cnp);
-						    preparedStatement.setString(2, nume);
-						    preparedStatement.setString(3, nrTel);
-						    preparedStatement.setString(4, parola);
-
-						    int affectedRows = preparedStatement.executeUpdate();
-						    if(affectedRows>0)
-						    	System.out.println("Inregistrare efectuata cu succes.");	
-						} catch (SQLException e) {
-						    e.printStackTrace();
-						}
-						
-					}
-				}catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-			
-		
-		
-	}
-	/**
-	 * Metoda pentru alegrea id-ului exemplarului care se doreste a fi imprututat
+	 * Metoda pentru alegrea id-ului exemplarului care se doreste a fi imprututat. Se cauta in tabela exemplare, acele inregistrari care
+	 * au ca si atribut in coloana idCarte, id-ul cartii trimise ca parametru si care au statusul "disponibila".
+	 * In momentul in care se gaseste primul exemplar disponibil, atunci acel exemplar va fi selectat pentru a fi dat spre imprumut
 	 * @param idCarte - id-ul cartii care se doreste a fi imprumutata
-	 * @return - id-ul exemplarului
+	 * @return - id-ul exemplarului ales pentru imprumut
 	 */
 	public static int alegeIdExemplarPtImprumut(int idCarte) {
-		
 		
 		int id=0;
 		
@@ -521,6 +311,13 @@ public class FunctiiBibliotecar {
 		return  id;
 	}
 	
+	/**
+	 * Aceasta metoda este folosita pentru validarea cnp-ului unui cititor in momentul in care acesta doreste sa imprumute o carte.
+	 * Se cauta in tabela "cititori" inregistrarea cu atributul cnp egal cu valoarea transmisa ca parametru functiei.
+	 * Daca nu se gaseste o astfel de inregistrare, atunci inseamna ca cititorul nu are creat un cont, deci nu poate sa faca imprumuturi
+	 * @param cnp - cnp-ul transmis spre valisare
+	 * @return - true, daca cnp-ul a fost gasit, false in caz contrar
+	 */
 	public static boolean verificaCnpPtImprumut(String cnp) {
 		boolean CNPValid=false;
 		try {
@@ -544,95 +341,12 @@ public class FunctiiBibliotecar {
 		return CNPValid;
 	}
 	
-	/**
-	 * Metoda pentru determinarea cititorului care doreste sa faca un imprumut
-	 * @return un obiect de tipul Cititor
-	 */
-	public static Cititor determinaCititorulCareImprumutaCartea()
-	{
-		boolean CNPValid=false;
-		String cnp="0000000000";
-		Scanner sc = new Scanner(System.in);
-		Cititor cit= new Cititor();
-		
-			try {
-				Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
-				java.sql.Statement st = connection.createStatement();
+	
 
-				try {
-					while(!CNPValid)
-					{
-						System.out.print("CNP-ul Cititorului:");
-						cnp=sc.next();
-						String SQL_SELECT = "select * from cititori where CNP='"+cnp+"'";
-						ResultSet resultSet = st.executeQuery(SQL_SELECT);
-						while(resultSet.next())
-						{
-							
-							System.out.println("Cititorul cu CNP-ul " + cnp+ " a fost selectat pentru rezervare.");
-							String CNP = resultSet.getString("CNP");
-							String nrTelefon = resultSet.getString("nrTelefon");
-							String nume = resultSet.getString("nume");
-							String parola = resultSet.getString("parola");
-							cit = new Cititor(CNP,nrTelefon,nume, parola);
-							CNPValid=true;
-						}
-					if(CNPValid==false)
-						{	
-							System.out.println("Acest CNP nu este asociat nici unui utilizator. INCEARCA IAR\n");
-						}
-					else if(CNPValid==true)
-						System.out.println("CNP valid, continuati\n");
-					}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					}
-			}
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-			
-		return cit;
-	}
-	
-	
 	/**
-	 * Metoda pentru alegerea id-ului cartii care se doreste a fi imprumutata
-	 * @param carti - lista de carti din boblioteca
-	 * @return - id-ul cartii
-	 */
-	public static int alegeIdCartePtImprumut(List<Carte> cartiPosibile)
-	{
-		boolean idCorect=false;
-		int id=0;
-		while(!idCorect)
-		{
-			System.out.println("Alege ID-ul cartii pe care doresti sa o imprumuti");
-			Scanner sc = new Scanner(System.in);
-			System.out.print("ID:");
-			id=Integer.parseInt(sc.next());
-			for(Carte cart: cartiPosibile) {
-				if(cart.getIdCarte()==id)
-					{
-						if(cart.getNrExemplareDisponibile()==0)
-						{
-							System.out.println("Nu exista exemplare disponibile pentru aceasta carte");
-						}
-						else
-							idCorect=true;
-						break;
-					}
-			}
-			if(idCorect==false)
-			System.out.println("ID incorect, incearca iar");
-		}
-		return id;
-	}
-	
-	/**
-	 * Metoda folosita pentru realizarea unui imprumut 
+	 * Metoda folosita pentru realizarea unui imprumut. Se adauga in baza de date noi informtii: in tabela "imprumuturi" se adauga o noua inregistrare
+	 * care contine datele despre un nou imprumut. Se mofifica numarul de carti disponibile si numarul de carti imprumutate pentru carte care este imprumutata,
+	 * se modifica statusul exemplarului din"disponibila" in "rezervata"
 	 * @param cit - citiroul pentru care se reazizeaza imorumutul
 	 * @param idCarte - id-ul cartii care se doreste a fi imprumutata
 	 * @param idExemplar - id-ul exemplarului corespunzator cartii
@@ -651,7 +365,6 @@ public class FunctiiBibliotecar {
 				nred=resultSet.getInt("nrcd");
 				nrei=resultSet.getInt("nrci");
 			}
-			System.out.println(nred);
 			nred--;
 			nrei++;
 			String SQL_UPDATE="UPDATE carti SET nrcd ='"+nred+"' WHERE (idCarte = '"+idCarte+"')";
@@ -688,50 +401,17 @@ public class FunctiiBibliotecar {
 			e.printStackTrace();
 		}
 
-		//Functii.scrieCarti(carti);
-		//Functii.scrieImprumuturi(imprumuturi);
-		//Functii.scrieExemplare(exemplare);
+	
 		System.out.println("Imprumut efectuat cu succes.");	
 	}
 	
 	/**
-	 * Metoda pentru reazlizarea imprumutului unei carti
+	 * Aceasta metoda verifica daca id-ul exemplarului ales pentru retuR se gaseste in lista de exemplare pe care cititorul le-a imprumutat.
+	 * @param imprumuturi - lista de exemplare imprumutata de catre cititor
+	 * @param id - id-ul exemplarului pe care doreste sa il returneze
+	 * @return - true- daca id-ul se afla in lista de imprumuturi, false in caz contrar
 	 */
-	public static void realizeazaImprumutP1() {
-		
-		System.out.println("<<Imprumuta o carte>>");
-		boolean carteGasita=false;
-		List<Carte> carti = new ArrayList<>();
-		
-		while(!carteGasita) 
-		{
-			Scanner sc = new Scanner(System.in);
-			System.out.println("Introdu titlul cautat:");
-			String titlu=sc.next();
-			System.out.println("Introdu autorul:");
-			String autor=sc.next();
-			carti=Functii.returneazaCartea(titlu,autor);
-			if(carti.size()!=0)
-				carteGasita=true;
-			if(carti.size()==0)
-			{
-				System.out.println("Aceasta carte nu este disponibila. Asigurati-va ca ati introdus corect TITLUL si AUTORUL\nINCERCATI IAR ");
-			}
-		}
-		if(carteGasita==true)
-		{
-			System.out.println("ID TITLU AUTOR");
-			for(Carte c:carti)
-				System.out.println(c);
-		}
-		int idCartePtImprumut=alegeIdCartePtImprumut(carti);
-		int idExemplarPtImprumut=alegeIdExemplarPtImprumut(idCartePtImprumut);
-		System.out.println(idExemplarPtImprumut);
-		Cititor cititor=determinaCititorulCareImprumutaCartea();
-		realizeazaImprumutP2(cititor.getCNPCititor(), idCartePtImprumut, idExemplarPtImprumut);
-	}
-	
-public static boolean verificaIdExemplarAlesPtRetur(List<AfisareImprumutri> imprumuturi, int id) {
+	public static boolean verificaIdExemplarAlesPtRetur(List<AfisareImprumutri> imprumuturi, int id) {
 		
 		boolean idExemplarCorect=false;
 		for(AfisareImprumutri r: imprumuturi)
@@ -744,6 +424,13 @@ public static boolean verificaIdExemplarAlesPtRetur(List<AfisareImprumutri> impr
 		return idExemplarCorect;
 	}
 
+	/**
+	 *  Metoda folosita pentru realizarea unui retur. Se adauga in baza de date noi informtii: in tabela "imprumuturi" se sterge inregistrarea
+	 * care contine datele despre exemplarul care se returneza si cnp-ul cititorului. Se mofifica numarul de carti disponibile si numarul de carti imprumutate pentru carte care este imprumutata,
+	 * se modifica statusul exemplarului din"imprumutata" in "disponibila"
+	 * @param cnp - cnp-ul cititorului care face retur
+	 * @param idExemplar - id-ul Exemplarului care se returneza
+	 */
 	public static void realizeazaRetur(String cnp, int idExemplar) {
 		try {
 			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
@@ -799,142 +486,12 @@ public static boolean verificaIdExemplarAlesPtRetur(List<AfisareImprumutri> impr
 	}
 
 	
+
 	/**
-	 * Metoda pentru realizarea returului unui exemplar
+	 * Aceasta metoda este folosita pentru revizuirea tututor rezervarilor.
+	 * Se cauta in tabela "rezervari" tate inregistralie care au fost efectuat de mai mult de doua zile(se verifica data rezervarii) si se sterg din baza de date.
+	 se modifica status-ul exemplarelor respective si numaru de carti disponibile si rezervate.
 	 */
-	public static void realizeazaRetur() {
-		
-			try {
-				Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
-				java.sql.Statement st = connection.createStatement();
-
-				try {
-					boolean CNPValid=false;
-
-					Scanner sc = new Scanner(System.in);
-					String cnp="0";
-					
-					Cititor cit= new Cititor();
-						
-					while(!CNPValid)
-						{
-							System.out.print("CNP-ul Cititorului:");
-							cnp=sc.next();
-							String SQL_SELECT = "select * from cititori where CNP='"+cnp+"'";
-							ResultSet resultSet = st.executeQuery(SQL_SELECT);
-							while(resultSet.next())
-							{
-								
-								System.out.println("Cititorul cu CNP-ul " + cnp+ " a fost selectat pentru returnarea unai carti.");
-								String CNP = resultSet.getString("CNP");
-								String nrTelefon = resultSet.getString("nrTelefon");
-								String nume = resultSet.getString("nume");
-								String parola = resultSet.getString("parola");
-								cit = new Cititor(CNP,nrTelefon,nume, parola);
-								CNPValid=true;
-							}
-						if(CNPValid==false)
-							{	
-								System.out.println("Acest CNP nu este asociat nici unui utilizator. INCEARCA IAR\n");
-							}
-						else if(CNPValid==true)
-							System.out.println("CNP valid, continuati\n");
-						}
-					
-					if(CNPValid) 
-					{
-						System.out.println("Imprumuturile acestui cititor");
-						
-						
-						List<Integer> idExemplareImp = new ArrayList<>();
-						
-						System.out.println("ID Exemplar TITLU AUTOR");
-						
-						String SQL_SELECT = "select i.idExemplar, c.titlu, c.autor from imprumuturi i, carti c, exemplare e1 where i.cnpCititor='"
-								+ ""+cit.getCNPCititor()+"'and e1.idExemplar=i.idExemplar" + " and e1.idCarte=c.idCarte";
-						ResultSet resultSet = st.executeQuery(SQL_SELECT);
-						
-						while(resultSet.next())
-						{
-							System.out.println(resultSet.getInt("i.idExemplar")+" "+resultSet.getString("c.titlu")+" "+resultSet.getString("c.autor"));
-							idExemplareImp.add(resultSet.getInt("i.idExemplar"));
-						}
-						
-						boolean idExemplarCorect=false;
-						int idExemplar=0;
-						Scanner sc1 = new Scanner(System.in);
-						
-						while(!idExemplarCorect) {
-							
-							System.out.println("Alegeti id-ul corespunzator exemplarului pentru care doriti sa reazlizati retur");
-							idExemplar=Integer.parseInt(sc1.next());
-							if(idExemplareImp.contains(idExemplar))
-								{
-									idExemplarCorect=true;
-									break;
-								}
-							else {System.out.print("Acest id este incorect. INCEARCA IAR");}
-						}
-						if(idExemplarCorect)
-						{
-							String SQL_SELECT1="Select * from exemplare where idExemplar = '"+idExemplar+"'";
-							ResultSet resultSet1 = st.executeQuery(SQL_SELECT1);
-							
-							int idCarte=0;
-							while(resultSet1.next())
-							{
-								idCarte=resultSet1.getInt("idCarte");
-							}
-							
-							String SQL_SELECT2="Select * from carti where idCarte = '"+idCarte+"'";
-							ResultSet resultSet2 = st.executeQuery(SQL_SELECT2);
-							int nred=0;
-							int nrei=0;
-							while(resultSet2.next())
-							{
-								nred=resultSet2.getInt("nrcd");
-								nrei=resultSet2.getInt("nrci");
-							}
-							
-							nred++;
-							nrei--;
-							String SQL_UPDATE="UPDATE carti SET nrcd ='"+nred+"' WHERE (idCarte = '"+idCarte+"')";
-							String SQL_UPDATE2="UPDATE carti SET nrci ='"+nrei+"' WHERE (idCarte = '"+idCarte+"')";
-							
-							String SQL_UPDATE1="UPDATE exemplare SET status='DISPONIBILA' WHERE (idExemplar = '"+idExemplar+"')";
-							
-							st.executeUpdate(SQL_UPDATE);
-							st.executeUpdate(SQL_UPDATE1);
-							st.executeUpdate(SQL_UPDATE2);
-							
-							String SQL_DELETE = "DELETE FROM imprumuturi WHERE idExemplar=? and cnpCititor=?";
-
-							try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)) {
-							    preparedStatement.setString(2, cit.getCNPCititor());
-							    preparedStatement.setInt(1, idExemplar);
-							    int affectedRows = preparedStatement.executeUpdate();
-							    if(affectedRows>0)
-							    	System.out.println("Returnare efectuata cu succes.");
-								}
-							catch (SQLException e) {
-						    e.printStackTrace();
-							}
-						}
-					}
-					
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
-	}
-	
-
-	
 	public static void revizuiesteRezervari() {
 	    try {
 	        Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL, "root", "Raluca_2003");
@@ -1005,6 +562,12 @@ public static boolean verificaIdExemplarAlesPtRetur(List<AfisareImprumutri> impr
 	}
 
 
+	/**
+	 * Aceasta metoda este folosita pentru afisarea tututor imprumuturilor unui cititor. Se cauta in tabela imrumuturi toate inregistrarile
+	 * care au pentru atributul cnp valoarea egala cu cea trimisa ca parametru functiei si se adauga in lista.
+	 * @param cnp - cenp-ul cititorului pentru care vrem sa aflam imprumuturile
+	 * @return - lista de imorumuturi ale cititorului
+	 */
 	public static List<AfisareImprumutri> gasesteImprumuturileCititorului(String cnp){
 		
 		List<AfisareImprumutri> imprumuturi = new ArrayList<>();

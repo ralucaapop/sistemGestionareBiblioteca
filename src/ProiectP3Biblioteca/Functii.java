@@ -18,12 +18,19 @@ import java.util.Scanner;
 import ProiectP3Biblioteca.Exemplar.status;
 
 /**
- * Clasa pentru definirea tuturor metodelor folosite in aplicatie de catre un cititor
+ * Clasa pentru definirea tuturor metodelor folosite in aplicatie pentru gestionarea actiunilor unui utilizator cu rol de cititor
  */
 
 public class Functii {
 
-	
+	/**
+	 * Aceasta metoda este folosita pentru a verificarea datelor introduse de catre cititor in vederea autentificari acestui in cont.
+	 * Sunt verificate atat cnp-ul, cat si parola asociate contului. Pentru verificarea CNP-ului se foloseste o functe aditionala, 
+	 * iar doar daca cnp-ul este corect, atunci se verifica si parola asociata acestuia.
+	 * @param cnp - CNP-ul cititorului pe care il foloseste pentru a se autentifica 
+	 * @param parola - parola asociata contului acestuia
+	 * @return - se returneaza true daca datele introduse au fost corecte, false in caz contrar
+	 */
 	public static boolean verificaAutentificare(String cnp, String parola)
 	{
 		boolean autentificareCorecta = false;
@@ -35,9 +42,8 @@ public class Functii {
 				try {
 					boolean cnpValid=verificaCNPAuth(cnp);
 					
-					if(cnpValid==false)
-						System.out.println("CNP invalid, nu exista un utilizator inregistrat cu acest CNP, mai incearca/n");
-					else {
+					if(cnpValid==true)
+					{
 						String SQL_SELECT1 = "select * from CITITORI where cnp='"+cnp+"' and parola='"+parola+"'";
 						ResultSet resultSet1 = st.executeQuery(SQL_SELECT1);
 						
@@ -45,12 +51,9 @@ public class Functii {
 						
 						while (resultSet1.next()) {
 							ok1=1;
-							
-							System.out.println("PAROLA CORECTA");
+							//PAROLA CORECTA;
 							}
-						if(ok1==0)
-							System.out.println("Parola incorecta, incearca iar");
-						else 
+						if(ok1==1)
 							{
 								System.out.println("Autentificare cu succes");
 								autentificareCorecta=true;
@@ -68,13 +71,19 @@ public class Functii {
 		return autentificareCorecta;
 	}
 	
+	
+	/**
+	 * Aceasta metoda este folosita pentru verificarea existentei unui cont de utilizator(cititor) asociat cnp-ului introdus
+	 *  pentru a se putea realiza ulterior autentificare in cont. Verificarea existentei se face prin interogarea bazei de date(tabla cititori)
+	 * @param cnp - valoarea care trebuie verificata
+	 * @return - se returneza true daca cnp-ul a fost gasit, false in caz contrar
+	 */
 	public static boolean verificaCNPAuth(String cnp){
 		
 		boolean ok = false;
 		try {
 			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
-		 	System.out.println("Intra in contul tau\nIntrodu CNP-ul si parola pentru a te putea loga");
-		 	java.sql.Statement st = connection.createStatement();
+		 		java.sql.Statement st = connection.createStatement();
 
 				try {
 					String SQL_SELECT = "select * from CITITORI where cnp='"+cnp+"'";
@@ -82,7 +91,7 @@ public class Functii {
 					
 					while (resultSet.next()) {
 						ok=true;
-						System.out.println("CNP CORECT");
+						
 					}
 				}catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -94,40 +103,11 @@ public class Functii {
 		return ok;
 	}
 	
-	/**
-	 * Metoda pentru autentificarea in aplicatie a unui cititor
-	 * @param sc - un obiect de tip Scanner
-	 */
-	public static void actiuniCititor()
-	{
-		Scanner sc = new Scanner(System.in);
-		boolean autentificare_corecta = false;
-			
-		String cnp="nec";
-		String parola="nec";
-	
-		while(!autentificare_corecta)
-			{
-				System.out.println("Intra in contul tau\nIntrodu CNP-ul si parola pentru a te putea loga");
-			
-				System.out.print("CNP:");
-				cnp = sc.next();
-				System.out.print("PAROLA:");
-				parola = sc.next();
-				autentificare_corecta=verificaAutentificare(cnp,parola);
-				
-				if(autentificare_corecta)
-				{
-					Cititor cit = new Cititor(cnp,parola);
-					System.out.println(cnp);
-					optiuniCititor(cit);
-				}
-			}
-	}
 	
 	/**
-	 * Metoda care returneaza o lista de carti care au titlul si autorul specificat
-	 * @param titlu - titlul cartii f=dorite
+	 * Metoda care returneaza o lista de carti care au titlul si autorul specificat. In aceasta metoda se cauta in baza de date in tabela carti toate inregistrarile
+	 * pentru care atributele "titlu" si "autor" se portivescu cu cele spceificate de utilizator in aplicatie. 
+	 * @param titlu - titlul cartii dorite
 	 * @param autor - autorul cartii dorite
 	 * @return lista de carti
 	 */
@@ -159,9 +139,11 @@ public class Functii {
 	}
 	
 	/**
-	 * Metoda pentru alegerea id-ului cartii pentru rezervare
-	 * @param carti - lista de carti din care se poate alege
-	 * @return - id-ul cartii
+	 * Aceasta metoda verifica daca id-ul cartii pe care cititorul l-a ales pentru a face o rezervare este unul corect(se regaseste in lista de carti afisate
+	 * si daca exista exemplare disponibile pentru cartea dorita
+	 * @param cartiPosibile
+	 * @param id
+	 * @return
 	 */
 	public static boolean verificaIdCarteAles(List<Carte> cartiPosibile, int id) {
 		boolean idCorect=false;
@@ -181,6 +163,13 @@ public class Functii {
 		return idCorect;
 	}
 	
+	/**
+	 * Metoda este folosita pentru ca utilizatorul sa aleaga din lista de carti afisata, in urma specificarii cartii dorte,
+	 * exact cartea pentru care doreste sa faca rezervare. Daca pentru cartea aleasa nu mai sunt exemplare disponibile, acesa va primi un mesaj aferent,
+	 * si va putea selecta id-ul unei ale carti din lista prezentata
+	 * @param carti - lista de carti din care se poate alege
+	 * @return - id-ul cartii pe care utilizaotrul a ales-o spre rezervare
+	 */
 	public static int alegeIdCartePtRezervare(List<Carte> cartiPosibile)
 	{
 		boolean idCorect=false;
@@ -210,12 +199,12 @@ public class Functii {
 	}
 	
 	/**
-	 * Metoda pentru alegerea id-ului exemplarului care se doreste a fi rezervat
-	 * @param idCarte- id-ul cartii  
-	 * @return id-ul exemplarului 
+	 * Aceasta metoda este folosita pentru alegerea id-ului exemplarului care va fi rezervat de catre cititor. Dupa alegere cartii si verificarea id-ului acesteia, 
+	 * din lista de exemplare ale cartii respective se alege id-ul primului exemplar care este disponibil. 
+	 * @param idCarte- id-ul cartii pe care cititorul doreste sa o rezerve
+	 * @return id-ul exemplarului care va fi selectat pentru imprumut
 	 */
 	public static int alegeIdExemplarPtRezervare(int idCarte) {
-		
 		
 		int id=0;
 		
@@ -246,10 +235,12 @@ public class Functii {
 	}
 
 	/**
-	 * Metoda pentru realizarea unei rezervari pentru un exemplar
+	 * In aceasta metoda are loc realizarea efectiva a rezervarii. Se cauta in tablea "carti" cartea care se doreste a fi rezervata, se modifica numarul de exemplare
+	 * disponibile si rezervate, se modifica status-ul exemplarului cartii in "REZERVATA" si se adauga o noua inregistrare in tabela rezervari care contine
+	 * cnp-ul cititorului, id-ul exemplarului si data curenta
 	 * @param cit - obect de tip cititor care face rezervarea
-	 * @param idCarte - id-ul cartii rezervate
-	 * @param idExemplar - id-ul exemplarului rezervat
+	 * @param idCarte - id-ul cartii care urmeaza a fi rezervat
+	 * @param idExemplar - id-ul exemplarului care urmeaza a fi rezervat
 	 */
 	public static void realizeazaRezervare(Cititor cit, int idCarte, int idExemplar ) {
 		Connection connection;
@@ -296,76 +287,14 @@ public class Functii {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-
-		
-		
+	
 	}
 	
-	/**
-	 * Metoda pentru alegerea actiunilor in aplicatie pentru un cititor
-	 * @param cit - cititorul care face alegerile
-	 */
-	public static void optiuniCititor(Cititor cit) {
-			int alegere=0;
-			while(alegere<1||alegere>6)
-			{	
-				System.out.println("\nACTIUNI POSIBILE:\n1.Fa o rezervare\n2.Anuleaza o rezervare\n3.EXIT");
-				Scanner sc1 = new Scanner(System.in);
-				System.out.print("Alege NUMARUL actiunii dorite:");
-				alegere=Integer.parseInt(sc1.next());
-				
-				if(alegere<0||alegere>5)
-					System.out.println("ALEGERE INVALIDA. Trebuie sa selectati un numar din multimea{1,2,3}");
-				
-			}
-			
-			if(alegere==1)
-			Functii.faRezervare(cit);
-			else if(alegere==2)
-			Functii.anuleazaRezervare(cit);
-			else if(alegere==3)
-				System.exit(0);
-	}
 	
 	/**
-	 * Metoda pentru rezervarea unei carti
-	 * @param cititor - cititorul care face rezevarea
-	 */
-	public static void faRezervare(Cititor cititor) {
-		
-		System.out.println("<<Rezerva o carte>>");
-		boolean carteGasita=false;
-		List<Carte> carti = new ArrayList<>();
-		
-		while(!carteGasita) 
-		{
-			Scanner sc1 = new Scanner(System.in);
-			System.out.println("Introdu titlul cautat:");
-			String titlu=sc1.next();
-			System.out.println("Introdu autorul:");
-			String autor=sc1.next();
-			carti=returneazaCartea(titlu,autor);
-			if(carti.size()!=0)
-				carteGasita=true;
-			if(carti.size()==0)
-			{
-				System.out.println("Aceasta carte nu este disponibila. Asigurati-va ca ati introdus corect TITLUL si AUTORUL\nINCERCATI IAR ");
-			}
-		}
-		if(carteGasita==true)
-		{
-			System.out.println("ID TITLU AUTOR");
-			for(Carte c:carti)
-				System.out.println(c);
-		}
-		int idCartePtRezervare=alegeIdCartePtRezervare(carti);
-		int idExemplarPtRezervare=alegeIdExemplarPtRezervare(idCartePtRezervare);
-		realizeazaRezervare(cititor, idCartePtRezervare, idExemplarPtRezervare);
-	}
-	
-	/**
-	 * Metoda pentru anularea unei rezervari
-	 * @param cit - cititorul care realizeaza anularea
+	 * Aceasta metoda este folosita pentru afisarea tuturor rezervarilor active efectuate de catre un cititor. Se cauta in tabela rezervari toate inregistratile
+	 * care au valoarea atributului cnpCititor egal cu valoarea cnp-ului obiectului de tip cititor primit ca parametru
+	 * @param cit - cititorul pentru care se afiseaza rezervarile
 	 */
 	
 	public static List<AfisareRezervari> gasesteRezervarileCititorului(Cititor cit){
@@ -398,6 +327,14 @@ public class Functii {
 		return rezervari;
 	}
 	
+	/**
+	 * Aceasta metoda este folosita pentru a verifica daca id-ul exemplarului pe care dorese cititorul sa il returneze este valid sau nu.
+	 * Se cauta in lista de exemplare rezervate ale cititorul, iar daca id-ul selectat de cititor pentru anularea unei rezervari se regaseste in lista
+	 * de rezervari, atunci se poate realiza anularea 
+	 * @param rezervari - lista cu exemplare rezervate de catre un cititor
+	 * @param id - id-ul exemplarului pe care cititorul doreste sa anuleze rezervarea
+	 * @return - returneza true daca id-ul este valid, false in caz contrar
+	 */
 	public static boolean verificaIdExemplarAles(List<AfisareRezervari> rezervari, int id) {
 		
 		boolean idExemplarCorect=false;
@@ -412,7 +349,14 @@ public class Functii {
 	
 	
 	
-	
+	/**
+	 * In aceasta metoda se realizeaza anularea rezervarii efective, dupa ce au fost selectate cititorul si id-ul exemplarului se modifica baza de date 
+	 * prin stergerea inregistrarii aferecte rezervarii care se doreste a fi anulata in tabela "rezervari", modificarea numarului de exemplare disponibile
+	 * si rezervate pentu catrea corespunzatoare id-ului exemplarului dorit in tabela carti si modificarea ststusului din "rezervata" in "disponibila" in
+	 * tabela exemplare.  
+	 * @param cit - cititorul care realizeaza anularea rezervarii 
+	 * @param idExemplar - id-ul exemplarului pentru care va fi anulata rezervarea
+	 */
 	public static void anuleazaRezervare(Cititor cit, int idExemplar) {
 		Connection connection;
 		try {
@@ -466,111 +410,15 @@ public class Functii {
 	}
 }
 
-	///nefolosita
-	public static void anuleazaRezervare(Cititor cit) {
-		
-		
-		System.out.println("Rezervarile tale");
-		
-		List<Integer> idExemplareRez = new ArrayList<>();
-		
-		System.out.println("ID Exemplar TITLU AUTOR");
-		
-		try {
-			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
-			java.sql.Statement st = connection.createStatement();
-
-			try {
-					String SQL_SELECT = "select r.idExemplar, c.titlu, c.autor from rezervari r, carti c, exemplare e1 where r.cnpCititor='"
-							+ ""+cit.getCNPCititor()+"'and e1.idExemplar=r.idExemplar" + " and e1.idCarte=c.idCarte";
-					ResultSet resultSet = st.executeQuery(SQL_SELECT);
-					while(resultSet.next())
-					{
-						System.out.println(resultSet.getInt("r.idExemplar")+" "+resultSet.getString("c.titlu")+" "+resultSet.getString("c.autor"));
-						idExemplareRez.add(resultSet.getInt("r.idExemplar"));
-					}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				}
-		}
-	catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}		
-		
-		boolean idExemplarCorect=false;
-		int idExemplar=0;
-		Scanner sc1 = new Scanner(System.in);
-		while(!idExemplarCorect) {
-			
-			System.out.println("Alegeti id-ul corespunzator exemplarului pentru care doriti sa anulati rezervarea");
-			idExemplar=Integer.parseInt(sc1.next());
-			if(idExemplareRez.contains(idExemplar))
-				{
-					idExemplarCorect=true;
-					break;
-				}
-			else {System.out.print("Acest id este incorect. INCEARCA IAR");}
-		}
-		
-		if(idExemplarCorect)
-		{
-			Connection connection;
-			try {
-			connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
-			java.sql.Statement st= connection.createStatement();
-			String SQL_SELECT="Select * from exemplare where idExemplar = '"+idExemplar+"'";
-			ResultSet resultSet = st.executeQuery(SQL_SELECT);
-			
-			int idCarte=0;
-			while(resultSet.next())
-			{
-				idCarte=resultSet.getInt("idCarte");
-			}
-			
-			String SQL_SELECT1="Select * from carti where idCarte = '"+idCarte+"'";
-			ResultSet resultSet1 = st.executeQuery(SQL_SELECT1);
-			int nred=0;
-			int nrer=0;
-			while(resultSet1.next())
-			{
-				nred=resultSet1.getInt("nrcd");
-				nrer=resultSet1.getInt("nrcr");
-			}
-			
-			nred++;
-			nrer--;
-			String SQL_UPDATE="UPDATE carti SET nrcd ='"+nred+"' WHERE (idCarte = '"+idCarte+"')";
-			String SQL_UPDATE2="UPDATE carti SET nrcr ='"+nrer+"' WHERE (idCarte = '"+idCarte+"')";
-			
-			String SQL_UPDATE1="UPDATE exemplare SET status='DISPONIBILA' WHERE (idExemplar = '"+idExemplar+"')";
-			
-			st.executeUpdate(SQL_UPDATE);
-			st.executeUpdate(SQL_UPDATE1);
-			st.executeUpdate(SQL_UPDATE2);
-			
-			String SQL_DELETE = "DELETE FROM rezervari WHERE idExemplar=? and cnpCititor=?";
-
-			try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)) {
-			    preparedStatement.setString(2, cit.getCNPCititor());
-			    preparedStatement.setInt(1, idExemplar);
-			    int affectedRows = preparedStatement.executeUpdate();
-			    if(affectedRows>0)
-			    	System.out.println("Rezervare anulata cu succes.");	
-			} catch (SQLException e) {
-			    e.printStackTrace();
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-
-		}
-} 
-	
+	/**
+	 * Aceasta metoda este folosita pentru crearea unui nou cont de utiliztor de tip bibliotecar.
+	 * Se adauga in baza de date o noua inregistrare cu valorile primite ca parametrii
+	 * @param id - id-ul de angajat la bibliotecarului
+	 * @param nume - numele bibliotecarului
+	 * @param nrTel - numarul de telefon al bibliotecarului
+	 * @param email - adresa de e-mail a utilizatorului
+	 * @param parola - parola de la cont al utilizatorului pe care o va folosi pentru a se putea autentifica in cont
+	 */
 	public static void adaugaBibliotecarNou(int id, String nume, String nrTel, String email,String parola) {
 		try {
 			Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
@@ -598,111 +446,19 @@ public class Functii {
 		
 }
 	
-	public static void adaugaBibliotecarNou() {
-		System.out.println("Inregistreaza un bibliotecar nou");
-		boolean IDValid=true;
-		int id=0;
-		
-		boolean ok=false;	
-		
-		try {
-				Connection connection = DriverManager.getConnection(MainClasProiectP3Biblioteca.DB_URL,"root","Raluca_2003");
-				java.sql.Statement st = connection.createStatement();
-
-				try {
-					Scanner sc = new Scanner(System.in);
-
-					while(IDValid)
-					{
-						System.out.print("ID-ul Angajatului:");
-						id=Integer.parseInt(sc.next());
-						
-							String SQL_SELECT = "select * from bibliotecari where idAngajat='"+id+"'";
-							ResultSet resultSet = st.executeQuery(SQL_SELECT);
-							while(resultSet.next())
-								IDValid=false;
-						
-							if(IDValid==false)
-							{	
-								System.out.println("Acest ID este deja folosit. INCEARCA IAR\n");
-								IDValid=true;
-							}
-							else if(IDValid==true)
-							{
-							System.out.println("ID valid, continuati\n");
-								ok=true;
-								break;
-							}
-						}
-					if(ok==true)
-					{
-						System.out.println("NUMELE:");
-						String nume=sc.next();
-						System.out.println("NR Telefon:");
-						String nrTel=sc.next();
-						System.out.println("E-mail:");
-						String email=sc.next();
-						System.out.println("Parola:");
-						String parola=sc.next();
-						
-						String SQL_INSERT = "INSERT INTO bibliotecari VALUES(?,?,?,?,?)"; 
-						
-						try (PreparedStatement preparedStatement = connection.prepareStatement(SQL_INSERT)) {
-						    preparedStatement.setInt(1, id);
-						    preparedStatement.setString(2, nume);
-						    preparedStatement.setString(3, nrTel);
-						    preparedStatement.setString(4, email);
-						    preparedStatement.setString(5, parola);
-
-						    int affectedRows = preparedStatement.executeUpdate();
-						    if(affectedRows>0)
-						    	System.out.println("Inregistrare efectuata cu succes.");	
-						} catch (SQLException e) {
-						    e.printStackTrace();
-						}
-						
-					}
-				}catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-			
-		
-	}
+	
+	
 	/**
-	 * Metoda pentru alegerea actiunilor din aplicatie pentru rolul de Bibliotecar
-	 * @param sc
+	 * Aceasta metoda este folosita pentru autentificarea unui utilizator de tip bibliotecar in aplicatie
+	 * Se verifica datele introduse de catre bibliotecar in vederea autentificari acestui in cont.
+	 * Sunt verificate atat id-ul de angajat, cat si parola asociate contului. Pentru verificarea id-ului se foloseste o functe aditionala, 
+	 * iar doar daca id-ul este corect, atunci se verifica si parola asociata acestuia.
+	 * Pentru verificare se realizeaza interogari asupra bazei de date, mai exact asuprea tabelei "bibliotecari" si se verifica daca exista o inregistrare
+	 * pentru care atributele corespunzatoare id-ului si parolei sa fie egale cu valorile paramentrilor functiei
+	 * @param idA - id-ul angajatului pe care il introduce bibliotecarul pentru autentificarea in cont
+	 * @param parola - parola pe care o introduce bibliotecarul pentru sa se putea autentifica in cont
+	 * @return - returneaza true daca autentificarea este valida, fals in caz contrar
 	 */
-	
-	public static void actiuniBibliotecar(Scanner sc) {
-		
-			int alegere=0;
-			while(alegere<1||alegere>6)
-			{	
-				System.out.println("\nACTIUNI POSIBILE:\n1.Autentificare bibliotecar\n2.Adauga cont nou bibliotecar\n3.EXIT");
-				Scanner sc1 = new Scanner(System.in);
-				System.out.print("Alege NUMARUL actiunii dorite:");
-				alegere=Integer.parseInt(sc1.next());
-				
-				if(alegere<0||alegere>3)
-					System.out.println("ALEGERE INVALIDA. Trebuie sa selectati un numar din intervalul 1-6");
-			}
-			
-			if(alegere==1)
-				autentificareBibliotecar();
-			else if(alegere==2)
-				adaugaBibliotecarNou();
-			else if(alegere==3)
-				System.exit(0);
-		
-	}
-	
-	
 	public static boolean verificaAutentificareBibliotecar(int idA, String parola) {
 		
 		boolean autentificareCorecta = false;
@@ -746,6 +502,12 @@ public class Functii {
 		return autentificareCorecta;
 	}
 	
+	/**
+	 * Aceasta metoda este folosita pentru verificarea existentei unui cont de utilizator(cititor) asociat id-ului introdus
+	 *  pentru a se putea realiza ulterior autentificare in cont. Verificarea existentei se face prin interogarea bazei de date(tabla bibliotecari)
+	 * @param idA - id-ul de angajat care se cauta in baza de date pentru a se verifica autentificare
+	 * @return true, daca s-a gasit id-ul in baza de date(daca exista un cont de bibliotecar asociat acestui id)
+	 */
 	public static boolean verificaIDAngajat(int idA) {
 		boolean idCorect=false;
 		try {
@@ -774,57 +536,6 @@ public class Functii {
 		return idCorect;
 	}
 	
-	public static void autentificareBibliotecar()
-	{
-		Scanner sc = new Scanner(System.in);
-		boolean autentificare_corecta = false;
-		
-		int idA=0;
-		String parola="nec";
 	
-		while(!autentificare_corecta)
-			{
-				System.out.println("Intra in contul tau\nIntrodu ID-ul si parola pentru a te putea loga");
-			
-				System.out.print("ID Angajat:");
-				idA = Integer.parseInt(sc.next());
-				System.out.print("PAROLA:");
-				parola = sc.next();
-				
-				boolean idValid=verificaIDAngajat(idA);
-				if(idValid)
-					autentificare_corecta=verificaAutentificareBibliotecar(idA,parola);
-			
-					if(autentificare_corecta==true)
-					{
-						int alegere=0;
-						while(alegere<1||alegere>6)
-						{	
-							System.out.println("\nACTIUNI POSIBILE:\n1.Adauga o carte noua\n2.Adauga un exemplar nou\n3.Adauga un nou cititor\n4.Realizeaza un imprumut\n5.Realizeaza un retur\n6Revizuieste Rezervari.\n7.EXIT");
-							Scanner sc1 = new Scanner(System.in);
-							System.out.print("Alege NUMARUL actiunii dorite:");
-							alegere=Integer.parseInt(sc1.next());
-							
-							if(alegere<0||alegere>7)
-								System.out.println("ALEGERE INVALIDA. Trebuie sa selectati un numar din intervalul 1-7");
-						}
-						
-						if(alegere==1)
-						FunctiiBibliotecar.adaugaCarteNoua();
-						else if(alegere==2)
-						FunctiiBibliotecar.adaugaExemplarNou();
-						else if(alegere==3)
-						FunctiiBibliotecar.adaugaCititorNou();
-						else if(alegere==4)
-						FunctiiBibliotecar.realizeazaImprumutP1();
-						else if(alegere==5)
-						FunctiiBibliotecar.realizeazaRetur();
-						else if(alegere==6)
-							FunctiiBibliotecar.revizuiesteRezervari();
-						else if(alegere==7)
-							System.exit(0);
-					}
-			}
-	}
 	
 }
