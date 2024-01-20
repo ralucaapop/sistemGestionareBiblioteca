@@ -78,7 +78,7 @@ Aceasta aplicatie vine in ajutorul persoanelor care doresc sa imprumute o anumit
 ![diagrama usecase](documentatie-ghid-utlizare-raport/creaza_cont_biblio_id_incorect.PNG)
 ![diagrama usecase](documentatie-ghid-utlizare-raport/creaza_cont_biblio_succes.PNG)
 
-
+![diagrama usecase](documentatie-ghid-utlizare-raport/Diagrama-use-case.png)
 ## Tabele baza de data
 ![tabele](documentatie-ghid-utlizare-raport/Tabele.png)
 ### Resurse
