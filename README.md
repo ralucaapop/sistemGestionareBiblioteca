@@ -71,7 +71,7 @@ Aceasta aplicatie vine in ajutorul persoanelor care doresc sa imprumute o anumit
 
 * Revizuieste rezervarile - alegand aceasta optiune, se vor revizui automat toate rezervarile de carti facute de catre cititori. Daca o rezervare este mai veche de doua zile, atunci aceasta va fi stearsa din lista de rezervari.
 ![diagrama usecase](documentatie-ghid-utlizare-raport/revizuieste_rezervari.PNG)
-![diagrama usecase](documentatie-ghid-utlizare-raport/revizuieste_revervari_succes.PNG)
+![diagrama usecase](documentatie-ghid-utlizare-raport/revizuieste_rezervari_succes.PNG)
 
 * Creaza cont de bibliotecar - alegand aceasta optiune, un bibliotecar poate sa creeze un cont de bibliotecar pentru un nou angajat. Acesta trebuie sa introduca id-ul de angajat al noului bibliotecar, numele acestuia, adresa de e-mail, numarul de telefon si o parola pentru contul acestuia. Cum id-urile sunt unice, daca acesta incearca sa introduca un id care deja exista va primi un mesaj de eroare.
 ![diagrama usecase](documentatie-ghid-utlizare-raport/creaza_cont_biblio.PNG)
